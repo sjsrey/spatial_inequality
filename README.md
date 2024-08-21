@@ -32,7 +32,6 @@ quarto render spatial_inequality.qmd
 
 ## Reading the document
 
-- [html](spatial_inequality.html)
 - [pdf](spatial_inequality.pdf)
 
 
