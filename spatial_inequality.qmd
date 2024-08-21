@@ -1,0 +1,1323 @@
+---
+title: "Spatial Inequality"
+format:
+  REGION-pdf:
+    keep-tex: true
+    pdf-engine: pdflatex
+    docstatus: final
+  REGION-html:
+    toc: false
+    format-links: false
+author:
+  - name: Sergio J. Rey
+    affiliations:
+      - name: San Diego State University
+        city: San Diego
+        country: USA
+    orcid: 0000-0001-5857-9762
+    email: srey@sdsu.edu
+    url: http://sergrey.org/
+abstract: |
+
+  The study of spatial inequality has gained prominence due to its significant implications for both scientific research and policy-making. This chapter explores the concepts and computational methods used to measure spatial inequality, emphasizing a reproducible approach that social scientists can apply to their research. The analysis focuses on geographic income disparities at the sub-national level, using Mexico as a case study. By examining various a-spatial and spatially explicit approaches, the chapter highlights the complexities of measuring inequality across places and over time. The discussion includes a review of traditional inequality measures and introduces spatial decomposition methods that account for the geographical distribution of income. The findings underscore the importance of integrating spatial considerations into inequality analysis to better understand the patterns and drivers of regional disparities, thereby informing more effective and equitable policy interventions.
+
+keywords: [spatial inequality, disparities, regions]
+bibliography: bibliography.bib  
+#ojsnum: 555
+#jvol: 11
+#jnum: 1
+#jpages: 100--200
+#jyear: 2024
+jauthor: S.J.\ Rey
+received: August 21, 2024
+#accepted: January 2, 2024
+---
+> Geographic income inequality has risen more than 40% between 1980 and 2021.
+>
+> -- @u.s.departmentofcommerce2023GeographicInequality
+
+# Introduction
+
+
+
+The study of spatial, or geographical, disparities is crucial for both
+scientific and policy-oriented reasons. Scientifically, understanding these
+disparities allows researchers to uncover patterns and correlations that are
+vital for advancing knowledge in various fields such as economics
+[@kanbur2005SpatialInequality], public health
+[@debnath2024GeographicDisparities], and environmental science
+[@venter2023EnvironmentalJustice].  From a policy perspective, recognizing and
+addressing geographical disparities is essential for promoting social equity and
+economic development. A prime example is the European Union\'s Cohesion Policy,
+where the reduction of spatial disparities between member regions takes center
+stage [@agnieszka2019RegionalInequalities].  Additionally, understanding spatial
+disparities can inform urban planning and environmental policies to create more
+sustainable and resilient communities.
+
+
+By bridging the gap between scientific research and policy implementation, the
+study of geographical disparities helps in crafting evidence-based strategies
+that promote balanced regional development, reduce inequalities, and improve the
+overall quality of life. Ultimately, this interdisciplinary approach fosters a
+deeper understanding of the complex dynamics at play and supports the creation
+of more inclusive and effective policies.
+
+The field of spatial data science [@rey2023GeographicData] provides tools to
+visualize and analyze spatial inequality. Thus, it is well-positioned to support
+such interdisciplinary research. The goal of this chapter is to introduce social
+scientists to the concepts and measurement of spatial inequality. The emphasis
+is on adopting a computationally focused and reproducible treatment that would
+allow researchers to apply the methods introduced here to their own
+investigations.
+
+The chapter proceeds as follows. We first develop a conceptual understanding
+of the measurement of spatial inequality. Next, we describe the computational
+environment employed to analyze spatial disparities. The specific case study is
+then introduced. We then discuss different a-spatial approaches towards
+measuring inequality, followed by a detailed exploration of spatially explicit
+approaches for measuring geographical disparities. The chapter concludes with
+the identification of future research areas in the field of spatial inequality.
+
+
+# Inequality Concepts
+The growing concern with inequality brings to mind Peter Drucker's often-cited
+principle, “You can’t improve what you don’t measure.” Before we can address the
+technical challenges of measuring spatial inequality, it is essential to first
+grapple with the conceptual issues surrounding what we are measuring.
+
+ 
+It is important to distinguish between terms that frequently appear in the
+inequality literature: equality (inequality) and equity (inequity). Equality
+refers to the state of being equal, particularly in status, rights, and
+opportunities. In economics, this often means distributing resources and
+opportunities uniformly across all individuals or groups.
+
+Equity, conversely, involves fairness and justice in the distribution of
+resources and opportunities. It considers individual needs and circumstances,
+aiming to level the playing field. 
+Therefore, although inequality and inequity are interconnected within the
+context of social justice [@sen2004InequalityReexamined], they are not synonymous.
+
+For instance, an equal distribution of resources, such as uniform per capita
+expenditure on students, can create inequities by ignoring the challenges faced
+by students in different contexts, such as urban versus rural districts or
+advantaged versus disadvantaged neighborhoods
+[@tine2017GrowingRural]. Conversely, some distributions are intentionally
+unequal to achieve greater equity. Progressive income tax schemes, where the tax
+rate increases with income, are a prime example of this approach
+[@ledic2023TaxProgressivity].
+
+A closely related distinction is between equality of outcomes and equality of
+opportunities. Inequality in outcomes refers to the unequal distribution of
+income, wealth, and resources among individuals in a society, which can result
+from factors such as luck, effort, and inherited wealth. In contrast, inequality
+in opportunities focuses on the unequal access to education, healthcare, and
+other essential services that enable individuals to achieve their potential,
+irrespective of their background [@roemer1998EqualityOpportunity].  Studies may
+differ, then, in whether they measure spatial inequality in outcomes
+[@khedmatimorasae2024SocialDeterminants] or spatial disparities in opportunities
+[@knaap2017CartographyOpportunity].
+
+In addition to the distinction between inequality and inequity, and between outcomes
+versus opportunities, there is much variation in the substantive variable under
+focus. Income studies dominate the literature quantitatively
+[@gaubert2021TrendsUS] and are sometimes contrasted with studies of the
+inequality of wealth [@suss2024GEOWEALTHUSSpatial].[^wealth] More granular studies
+examine disparities in the sources of income, such as wages, as well as
+employment rates [@overman2022SpatialDisparities]. Outside of economics, topics
+such as disparities in educational outcomes [@graetz2020MappingDisparities],
+health outcomes [@khedmatimorasae2024SocialDeterminants], voting patterns
+[@barber2022400Million], among many others, are replete across the social and
+life sciences.
+
+[^wealth]: It is important to keep in mind that income is measured as a flow whereas wealth is a stock. This distinction matters in terms of the way disparities in the two variables are examined.
+
+The unit of measurement employed in inequality analysis is also an important
+consideration.  @sala-i-martin2006WorldDistribution demonstrates that when using
+countries as the unit of analysis, the picture that emerges is one of large and
+static levels of international inequality. However, when the analysis used
+countries weighted by their populations, the view is one of declining inequality
+over time. Later, we shall see that this choice of weighting versus
+non-weighting of the units is an important issue in spatial inequality measurement.
+
+There is much variation across the inequality literature in the unit of
+measure. Studies of personal income inequality often focus on data recorded for
+individuals [@piketty2003IncomeInequality]. Other studies take the household or
+family as the unit of analysis [@brandolini2011IncomeInequality].  In both
+cases, the focus is on income inequality across people.  This is an essential
+point of departure for our study of spatial inequality, which is where the unit
+of measurement is a geographical area. In other words, in spatial inequality
+analysis, the focus is inequality across places.
+
+Still further, some studies examine the spatial distribution of
+personal income inequality [@partridge1998StatePatterns;
+@frank2009InequalityGrowth]—that is, how inequality between individuals within a
+state varies across states. In the spatially oriented inequality studies, the
+geographical unit of analysis can range from countries
+[@milanovic2018GlobalInequality], to intra-national regions [@ganong2017WhyHas],
+to cities [@u.s.departmentofcommerce2023GeographicInequality], and down to
+neighborhoods [@nijman2020UrbanInequalities].
+
+A final inequality concept we need to consider is the role of time.  One
+question is the time unit. Is income measured per person, per year, or is some
+life-time earnings, or permanent income [@hall1978StochasticImplications]
+measure employed? A second question pertains to whether the study of inequality
+is a snapshot at one point in time or focuses on the dynamics of income
+distribution.
+
+Addressing all these issues is beyond the scope of any one study. We raise them
+here in order to situate the study of spatial inequality in a much broader
+context.  For this chapter, we will hone in on the question of measuring spatial
+income inequality at the sub-national scale.
+
+# Computational Environment
+In the following section, we present the packages and computational environment
+used.  The narrative following code cells explains the computational concepts.
+
+
+
+
+## Packages
+
+```{python}
+import inequality as ineq                # <1>
+import numpy as np                       # <2>
+import pandas as pd
+import geopandas as gpd
+import libpysal as lps
+import seaborn as sns
+import matplotlib.pyplot as plt
+import watermark
+%load_ext watermark
+%watermark -a "Sergio Rey" -u -n -t -v \
+    -p numpy,pandas,scipy,matplotlib,inequality,seaborn,libpysal
+```
+
+1. We alias the package `inequality` as `ineq`
+2. We do the same for `numpy`
+
+Our analysis of spatial inequality utilizes packages from the Python
+Spatial Analysis Library (`pysal`) [@rey2022PySALEcosystem], together with
+`geopandas` [@jordahl2019GeopandasGeopandas] and `seaborn` [@waskom2021SeabornStatistical]. The main
+package focusing on measuring spatial disparities is `inequality`, which
+implements analytics for measuring a-spatial inequality and
+spatially explicit inequality measures. Also, from `pysal`, we will depend on
+the `libpysal` package for constructing spatial weights that are central to the
+analysis of spatial inequality. `geopandas` provides for spatial data processing
+and producing maps of the spatial distribution of income, while we adopt
+`seaborn` for constructing a-spatial graphical views of inequality.
+
+For purposes of reproducibility, we include the `watermark` package
+which reports the version numbers of each of the packages we use in our
+analysis.
+
+# Data
+
+To illustrate the core concepts in spatial inequality measurement, we
+will rely on a data set for the states in Mexico
+[@rey2010InterregionalInequality].
+The variable of interest is state per capita gross domestic product
+measured in 2000 USD measured for each decade from 1940-2000 for each of
+32 areas consisting of the 31 federal states of Mexico plus Mexico City.
+This data-set is included as an example data-set in `libpysal`.
+
+```{python}
+lps.examples.explain("mexico")
+```
+
+In addition to the income data contained in the `mexico.csv` file, there are two
+additional files available in this example: `mexico.gal` which stores information
+about the contiguity relationships between the states, and `mexicojoin.shp` which
+is a shapefile.
+
+@fig-states lists the locations of the 32 Mexican states.[^mfn]
+
+[^mfn]: The python code used to construct this map is hidden.
+
+```{python}
+#| echo: false
+#| warning: false
+#| label: fig-states
+#| fig-cap: "States of Mexico"
+import mapclassify
+pth = lps.examples.get_path("mexicojoin.shp")
+gdf = gpd.read_file(pth)
+west = gdf.centroid.x < gdf.centroid.x.median()
+gdf['west'] = west
+sgdf = gdf.sort_values(by='NAME')
+sgdf.reset_index(inplace=True)
+sgdf['label'] = range(1, 33)
+sgdf['greedy'] = mapclassify.greedy(sgdf)
+
+font_size = 9
+outside = [9, 29]
+oc = [(-103, 17.5), (-95, 22.5)]
+oe = [(-102.55, 17.49),(-95.5, 22.1)] 
+oinfo = zip(outside, oc)
+from shapely.geometry import LineString
+import matplotlib.pyplot as plt
+sgdf['centroid'] = sgdf.centroid
+ax = sgdf.plot(
+    figsize=(8, 12),
+    column="greedy",
+    categorical=True,
+    cmap="Set3",
+    #legend=True,
+    edgecolor="w",
+)
+table = []
+for idx, row in sgdf.iterrows():
+    centroid = row['centroid']
+    table.append(f'{idx+1:2d} {row['NAME']}')
+    if idx+1 not in outside:
+        ax.text(centroid.x, centroid.y, str(idx+1), ha='center', va='center', fontsize=font_size, color='black')
+
+i = 0
+for out in oinfo:
+    idx, coords = out
+    ax.text(coords[0], coords[1], str(idx), ha='center', va='center', fontsize=font_size, color='black')
+    start_point = coords
+    end_point = sgdf.centroid[idx-1]
+
+    # Create a LineString object
+    start_point = oe[i]
+    line = LineString([start_point, end_point])
+    
+    # Create a GeoSeries for the line
+    line_gdf = gpd.GeoSeries([line])
+    
+    # Plot the line
+    line_gdf.plot(ax=ax, color='red', linewidth=2)
+    i+=1
+
+for i, label in enumerate(table):
+    if i < 16:
+        ax.text(-120, 20-i*1, label, ha='left', va='center', fontsize=font_size, color='black');
+    else:
+        ax.text(-110, 20-(i-16)*1, label, ha='left', va='center', fontsize=font_size, color='black');
+ax.set_axis_off()
+```
+
+
+```{python}
+pth = lps.examples.get_path("mexico.csv")
+df = pd.read_csv(pth)
+print(f"Shape of dataframe: {df.shape}")
+print(f"First 5 rows of dataframe:\n {df.head()}")
+df.head()
+print(f"\nVariables: {df.columns}")
+```
+We can read the `mexico.csv` file using `pandas` to create a `DataFrame` that will
+hold the attributes of interest. This dataframe has the shape `(32,13)` indicating
+there are 32 observations on 13 variables. The 13 variables include the
+per capita gross domestic product for each decade, for example `pcgdp1990` for
+1990, together with the state name, and six variables that define different
+regionalization schemes for the country. We will return to these regional
+variables in a later section.
+
+
+
+# Measuring Spatial Inequality in Mexico
+
+
+## Visualizing Inequality in Distributions
+We begin with different perspectives on the distribution of state incomes in
+Mexico. From a geographical perspective, @fig-mappcgdp2000 shows the spatial
+distribution of incomes for the last year of the sample (2000).
+
+```{python}
+#| warning: false
+#| label: fig-mappcgdp2000
+#| fig-cap: "Per Capita Gross Domestic Product by State (Quintiles)"
+pth = lps.examples.get_path("mexicojoin.shp")
+gdf = gpd.read_file(pth)
+ax = gdf.plot(column="PCGDP2000", k=5, scheme="Quantiles",
+              legend=True,
+              edgecolor='grey',
+              legend_kwds={"loc": "center left",
+                           "bbox_to_anchor": (1, 0.5),
+                           "fmt": "{:.0f}"})
+ax.set_axis_off()
+ax.set_title("PC GDP 2000");
+```
+This is a choropleth map using quintiles to classify the incomes.
+The visual impression is that incomes are not randomly distributed in Mexico, as
+the states with incomes below the bottom quintile are more concentrated in the  south, while
+in the north, the highest income states dominate.
+We will be able to make more quantitative evaluation of this spatial pattern
+later on in this chapter.
+
+@fig-pen2000 presents a different perspective on income distribution based on
+the concept of Pen's Parade, introduced by Dutch economist Jan Pen [@pen1971IncomeDistribution]. The
+metaphor uses a Parade to illustrate economic inequality, with each person
+representing a state in the economy, and their height being proportional to the
+state's per capita income. The Parade starts with the shortest individuals
+depicting the poorest states, gradually increasing in height as income rises. At
+the end of the parade, the tallest individuals represent the most affluent
+states, highlighting the significant income disparities across states. This
+visual tool showcases the inequality in income distribution. The parade uses two
+different scales, with the x-axis showing the ordinal distances between states
+and the y-axis representing the interval distances in their per capita incomes.
+
+
+```{python}
+#| warning: false
+#| label: fig-pen2000
+#| fig-cap: "Pen's Parade Per Capita Gross Domestic Product by State 2000"
+from inequality.pen import pen
+f = pen(gdf, 'PCGDP2000', 'NAME')
+```
+
+We can start to integrate the spatial and  attribute distributions together using a
+`pengram` from the `pysal-inequality` package:
+
+
+
+```{python}
+
+#| warning: false
+#| label: fig-pengram2000
+#| fig-cap: "Pengram Per Capita Gross Domestic Product by State 2000"
+from inequality.pen import pengram
+f = pengram(gdf, 'PCGDP2000', 'NAME', xticks=False, leg_pos='lower left',
+        fmt="{:.0f}")
+```
+As shown in @fig-pengram2000, the `pengram` combines the Pen's Parade alongside
+the choropleth map. This affords a more granular view of the distribution than
+those offered by either view in isolation. For example, one of the well-known
+limitations of a quintile classed map is that the intra-class variation is
+obscured. In the `pengram`, the intra-class variation now becomes visible
+through the Pen's Parade, revealing the much larger absolute and relative
+variance above the upper quintile relative to the other classes.
+
+
+A second feature of the `pengram` is the ability to query for specific
+observations. This makes it possible to locate the position of a state in both
+the Pen's Parade (attribute space) as well as on the map (geographical
+space). We do this for states occupying the two extremes of the attribute
+distribution: Chiapas and Distrito Federal in @fig-pengramquery. 
+While the two reside in the extremes of the attribute distribution, the high
+income Distrito Federal is in the center of the geographic distribution while
+Chiapas is on the southern border of the country. Moreover, although Distrito
+Federal stands out in the Pen's Parade, its small geographic area makes it
+difficult to identify on the map without the query functionality of the pengram.
+
+```{python}
+#| warning: false
+#| label: fig-pengramquery
+#| fig-cap: "Querying the Pengram of Per Capita Gross Domestic Product by State 2000"
+from inequality.pen import pengram
+f = pengram(gdf, 'PCGDP2000', 'NAME',  leg_pos='lower left',
+            fmt="{:.0f}",
+            xticks=False,
+            query=['Chiapas', 'Distrito Federal'])
+```
+
+
+<!--
+
+```{python}
+figsize = (8, 6)
+years = range(1940, 2010, 10)
+yvars = [f'pcgdp{year}' for year in years]
+plt.figure(figsize=figsize)
+for yvar in yvars:
+    sns.kdeplot(df[yvar], label=yvar)
+
+
+plt.legend(title='Per Capita Gross Domestic Product by State')
+plt.xlabel('GDPC')
+plt.ylabel('Density')
+plt.show()
+
+```
+-->
+
+Returning to a more granular view of the attribute distribution, @fig-kde2000
+combines a histogram of the distribution together with a kernel density
+estimate, and a rug plot. The latter signifies the positions of each state as
+short ticks on the x-axis.  The outlier nature of the Distrito Federal that we
+saw in the `pengram` is responsible for the positive (right) skew of the density
+function. There is some evidence of polarization in the distribution with the
+mode being at the poorest group of states and other, lower, peaks in the middle
+of the distribution.
+
+
+
+```{python}
+#| warning: false
+#| label: fig-kde2000
+#| fig-cap: "Distribution Per Capita Gross Domestic Product by  State  2000, histogram, kernel density, rug plot"
+
+years = range(1940, 2010, 10)
+yvars = [f'pcgdp{year}' for year in years]
+sns.histplot(df[yvars[-1]], kde=True, element="step",
+             bins=10, edgecolor="black")
+sns.rugplot(df[yvars[-1]], color='blue')
+plt.show()
+
+
+```
+
+Inequality in a distribution is often considered by an inspection of the shares
+of overall income belonging to units at different locations within the
+distribution. Here, we must keep in mind, the distinction between the different
+units under study in the analysis of spatial versus personal income
+inequality. In spatial inequality analysis, we essentially treat each state as
+an "individual" and set that individual's level of income to the state's per
+capita income. The share for the state is then derived as the ratio of its per
+capita income to the sum of the per capita income of all states.
+
+
+These shares can be portrayed in a Lorenz curve, shown in @fig-schutz2000, which orders
+ the states by their per capita incomes from lowest to highest. Then, against
+ the cumulative proportion of states (x-axis) we plot the cumulative income
+ share on the y-axis. Both scales have limits of $[0, 1]$. In the case of
+ perfect equality, where all state per capita incomes are equal, this plot would
+ be a 45-degree line, the so called line of perfect equality.  Any departure
+ from perfect equality will result in states with above average per capita income
+ receiving more than $1/n$ share of $n \bar{y}$, while states with below average
+ per capita incomes will have shares below $1/n$.[^lq]
+
+[^lq]: States with shares below $1/n$ would also have location quotients of less than one for their relative per capita incomes, where their per capita income was expressed relative to national per capita income.
+
+```{python}
+#| warning: false
+#| label: fig-schutz2000
+#| fig-cap: "Lorenz Curve and Schutz Line Per Capita Gross Domestic Product by  State  2000"
+from inequality.schutz import Schutz
+s = Schutz(gdf, 'PCGDP2000')
+s.plot(xlabel='Share of States', ylabel='Share of Per Capita Income')
+```
+
+## Measures of Inequality
+We can derive two indices from the Lorenz curve: the Gini coefficient and
+the Schutz coefficient. The Gini coefficient is an area measurement expressed as
+a ratio of the area of the lens above the Lorenz curve but below the diagonal
+to area under the line of perfect equality. The Schutz coefficient is a distance
+measure defined as the maximum vertical distance between the equality diagonal
+and the Lorenz curve. Both coefficients measure the extent to which the Lorenz
+curve departs from perfect equality. Moreover, both indices run from 0, perfect
+equality, to 1, maximal inequality.
+
+
+
+
+For 2000, the Gini coefficient is 0.258, while the Schutz coefficient is
+0.195. As they are both scaled to be within the unit interval, the temptation is
+to compare the two values. However, this would be misleading as we recall one is
+a measure of area, the second a measure of distance. Instead, each coefficient
+is often used to compare across distributions, either over time or space. We can
+do this for Mexico by asking what has happened to inequality over time. Along
+the way, we add a third commonly used indicator of inequality, the coefficient
+of variation ($CV$). The coefficient of variation is a relative measure of
+variation as it is defined as the ratio of the standard deviation to the sample mean.
+
+
+
+
+```{python}
+#| warning: false
+#| label: tbl-rankings
+#| tbl-cap: "Inequality Index Rankings"
+yvars = [f'PCGDP{year}' for year in years]
+ginis = [ineq.gini.Gini(gdf[yvar]).g for yvar in yvars]
+res_df = pd.DataFrame(data=ginis, columns=['Gini'], index=years)
+cv = gdf[yvars].std() / gdf[yvars].mean() 
+res_df['CV'] = cv.values
+s = [ineq.schutz.Schutz(gdf, yvar).distance for yvar in yvars]
+res_df['Schutz'] = s
+res_df['Gini_rank'] = res_df['Gini'].rank()
+res_df['CV_rank'] = res_df['CV'].rank()
+res_df['Schutz_rank'] = res_df['Schutz'].rank()
+res_df
+```
+
+
+@tbl-rankings shows that the three indices agree that inequality was lowest in
+1980, and the highest in 1940. However, while the Gini and Schutz coefficients
+agree in their rankings, the inclusion of the CV creates discordance.
+Part of the discordance reflects the sensitivity of the measures to different
+parts of the income distribution. The Gini coefficient puts more weight on the
+middle of the distribution, while the CV is more affected by the right tail of
+the distribution. The discordance also reflects the property that when the
+Lorenz curves do not intersect, the CV and Gini would agree on the rankings of
+inequality. However, @fig-lcs shows that there are cases where the Lorenz
+curves intersect.
+
+The discordance in rankings complicates whether income inequality between states
+in Mexico has increased or decreased. The answer now depends upon which temporal
+interval one chooses. Both the Gini and CV agree that inequality has declined
+since 1940, irrespective of the terminal year selected. However, they disagree
+on the answer when the question is whether inequality decreased from, say, 1960
+to 1970 or between 1990 and 2000 (see @tbl-rankings).
+
+
+```{python}
+#| warning: false
+#| label: fig-lcs
+#| fig-cap: "Lorenz Curves by Decade"
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import cumfreq
+
+def lorenz_curve(incomes):
+    sorted_incomes = np.sort(incomes)
+    cumulative_incomes = np.cumsum(sorted_incomes)
+    normalized = cumulative_incomes / cumulative_incomes[-1]
+    lorenz_curve = np.insert(normalized, 0, 0)
+    n = len(incomes)
+    x = np.linspace(0.0, 1.0, n + 1)
+    return x, lorenz_curve
+
+
+plt.figure(figsize=(10, 8))
+
+for yvar in yvars:
+    incomes = gdf[yvar].values
+    x, y = lorenz_curve(incomes)
+    plt.plot(x, y, label=yvar)
+
+# Plotting the line of equality
+plt.plot([0, 1], [0, 1], color='black', linestyle='--')
+
+# Adding titles and labels
+plt.title('Lorenz Curves for PCGDP by Year')
+plt.xlabel('Cumulative Share of States')
+plt.ylabel('Cumulative Share of PCGDP')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+```
+
+
+
+The CV and Gini are but two of a collection of scalar measures of inequality we
+could apply. Other commonly employed inequality measures include the variance,
+the relative mean deviation, logarithmic variance, variance of the logarithms,
+Atkinson, and Theil.[^cowell] Choosing among the rich diversity of inequality
+measures has been the subject of a vast literature. To help guide that
+selection, there are five desirable properties of an inequality measure:
+
+1. Symmetry or anonymity
+2. Principle of transfers
+3. Scale invariance
+4. Replication invariance
+5. Zero normalization
+
+Symmetry implies that the names of the income receiving unit should be
+immaterial. That is, if we swap the income of one geographical unit with that of
+another, the overall inequality measure should not change.  The principle of
+transfers implies that the measure should reflect a reduction in inequality if
+income is transferred from a richer unit to a poorer unit, as long
+as the transfer does not reverse their income ranking. Scale invariance means
+that if all incomes are multiplied by the same constant, inequality remains
+unchanged. Replication invariance implies that an inequality measure should be
+unaffected if the population is replicated, meaning that duplicating the entire
+income distribution does not alter the measure of inequality. Zero normalization
+means that an inequality measure assigns a value of zero to a perfectly equal
+income distribution, serving as a baseline where all units have the same income.
+
+Not all of the inequality measures satisfy all of these five properties. For
+example, the variance is not scale invariant, and both the logarithmic variance
+and variance of logarithms fail the principle of transfers property.  Even for
+measures that respect these five properties, their use in comparing the levels
+of inequality between countries at one point in time, or the same country at
+different points of time, requires the researcher to specify a social welfare
+function [@atkinson1970MeasurementInequality].
+
+However, in the study of spatial inequality, it is important to note that all
+the measures mentioned above share a sixth property: *spatial invariance*. This
+means they are insensitive to the *geographical* distribution of the income
+values. The spatial invariance is demonstrated in @fig-invariance, where we
+compare two spatial distributions, one that is the actual distribution for 2000
+and one where we artificially permute the incomes randomly. Despite markedly
+different spatial patterns, the income distributions summarized in the
+histograms in the bottom row are identical. Since all of the inequality measures
+mentioned only consider information about the statistical distribution, each
+measure will take on the same value whether applied to the spatial distribution
+on the left or right of the figure.
+
+From a geographical perspective, spatial invariance is not a desirable property
+in an inequality measure. Let's now turn our attention to spatially explicit
+measures of inequality.
+
+
+[^cowell]: See @cowell2011MeasuringInequality for an overview of inequality measures.
+
+
+
+```{python}
+#| warning: false
+#| label: fig-invariance
+#| fig-cap: "Spatial Invariance of Distributions"
+fig, axs = plt.subplots(2, 2)
+
+gdf.plot(column='PCGDP2000', ax=axs[0, 0], scheme='quantiles',
+         cmap='viridis')
+axs[0, 0].set_title('PCGDP2000')
+axs[0, 0].axis('off')
+
+
+gdf['PCGDP2000r'] = np.random.permutation(gdf.PCGDP2000)
+
+gdf.plot(column='PCGDP2000r', ax=axs[0, 1], scheme='quantiles',
+         cmap='viridis')
+axs[0, 1].set_title('PCGDP2000 Random')
+axs[0, 1].axis('off')
+
+axs[1, 0].hist(gdf['PCGDP2000'], bins=30, color='skyblue',
+               edgecolor='black')
+axs[1, 0].set_title('PCGDP2000 Histogram')
+axs[1, 0].set_xlabel('PCGDP2000')
+axs[1, 0].set_ylabel('Frequency')
+
+axs[1, 1].hist(gdf['PCGDP2000r'], bins=30, color='skyblue',
+               edgecolor='black')
+axs[1, 1].set_title('PCGDP2000 Random Histogram')
+axs[1, 1].set_xlabel('PCGDP2000r')
+axs[1, 1].set_ylabel('Frequency')
+
+plt.tight_layout()
+
+plt.show()
+
+```
+
+## Putting Space into the Measurement of Inequality
+
+
+The inability of the inequality measures to capture any of the geographical
+dimensions of inequality stems from the treatment of the geographical units of
+measurement as individuals, and the desire to respect the principle of symmetry
+or anonymity that is desired in a classic inequality measure.
+ This enables researchers to draw upon the wealth
+of knowledge about the properties of classic inequality measures, but at the
+cost of ignoring geography.  In other words, these measures say a lot about
+inequality in the statistical distribution of incomes but they are silent on the
+spatial distribution of incomes.
+
+In this section, we discuss the approaches used to integrate the spatial and
+statistical distributions in the study of spatial inequality.  Given that these
+methods take the geographical distribution into account, they can be said to be
+*spatially explicit measures of inequality*.
+
+
+These approaches all can be seen as special cases of inequality decomposition.
+
+### Regional Inequality Decomposition
+A common approach to introducing geography in the measurement of inequality
+leverages the fact that certain inequality measures can be *decomposed* if the individual
+income receiving units are placed into a set of mutually exclusive and
+exhaustive groups.  The decomposition then identifies the overall inequality
+that is due to inequality within groups and between 
+the groups.
+
+To see how this works, we return to the Theil inequality measure that we
+mentioned briefly above. Let $y_i$ be the income of unit $i$, and $s_i$ represent the income share of unit $i$ such
+that $s_i = \frac{y_i}{\sum_i y_i}$ and $\sum_i s_i=1$. Then, consider the
+distribution of the shares. When all units have the same income $s_i = s_j =
+1/n$. Then the entropy of the shares given as
+
+$$ H(y) = \sum_{i=1}^n s_i \ln \frac{1}{s_i}$$
+will be maximized at $\ln n$. In the case of extreme inequality, all but one
+unit have $s_i=0$ and a single unit has all income $s_j=1$, and $H(y)=0$. Thus, the entropy function can be viewed as an
+indicator of *income equality*. 
+
+To generate an indicator of *income inequality*, we can contrast an observed
+distribution's equality against the maximum:
+
+$$T(y) = \ln n - H(y) = \ln n - \sum_{i=1}^n s_i \ln \frac{1}{s_i}=\sum_{i=1}^n s_i \ln n s_i.$$
+
+This can be viewed as a weighted average of the logarithmic deviations of the
+shares, with the weights defined as the shares. The logarithmic deviation of
+share $i$ from perfect equality is $\ln \frac{s_i}{1/n} = \ln s_i n$.
+
+
+Alternatively,  the Theil index can be defined using relative incomes:
+
+$$T = \frac{1}{n} \sum_i \frac{y_i}{\mu} \ln \frac{y_i}{\mu}$$
+where $y_i$ is the income of unit $i$ and $\mu = \frac{1}{n} \sum_i y_i$.
+
+
+Decomposition of the overall $T$ measure requires assigning
+each unit to exactly one of $G$ sets $S_1, S_2, \ldots, S_G$, with
+the size of each set given as $n_g$ so that:
+$$
+\sum_{g=1}^G n_g = n.
+$$
+
+Given this, we have:
+
+$$Y_g = \sum_{i \in S_g} y_i \ g=1,\ldots,G$$
+
+Defining $\omega_g = \frac{n_g}{n} \frac{\bar{Y}_g}{\mu}$, the Theil index can be
+rewritten as:
+
+$$
+T = \sum_{g=1}^G \omega_g T_g + \sum_{g=1}^G \omega_g \ln
+\frac{\bar{Y}_g}{\mu}.
+$$ {#eq-decomp}
+
+The first term is the within group inequality defined as a weighted average of
+the inequality within each group with the weights equal to the group's share of
+overall income, with:
+
+$$T_g = \frac{1}{n_g} \sum_{i \in S_g} \frac{y_i}{\bar{Y}_g} \ln \frac{y_i}{\bar{Y}_g}.$$
+
+The second term in @eq-decomp is the between group inequality component, measuring the
+inequality that would exist if within each group there was no inequality (i.e.,
+all members of the same set have the same income).
+
+Decomposition of inequality had been widely applied in economics to study
+inequality between occupational groups, sexes, and races, where individuals
+would be placed into the mutually exclusive groups and overall individual
+inequality decomposed into that due to the differences between and within the
+groups. It was a short jump to adopt this to spatial inequality by using regions
+to define the groups, with individual units (in our case, states) being assigned
+to one and  only one region.[^theil]
+
+[^theil]: One of the earliest applications of decomposition for regional inequality analysis is @theil1967EconomicsInformation.
+
+We will illustrate this for the case of Mexican states using a regional partition
+due to @hanson1996MexicoIntegration as shown in @fig-components. This regionalization scheme consists
+of 5 regions, with the size of the regions ranging from 2 states to 10 states. 
+
+
+
+```{python}
+#| warning: false
+#| echo: false
+#| label: fig-components
+#| fig-cap: "Regional Inequality Decomposition"
+
+fig, axs = plt.subplots(2, 2)
+from inequality.theil import TheilD
+
+
+gdf.plot('PCGDP2000', ax=axs[0, 0], scheme='quantiles',
+         cmap='viridis')
+axs[0, 0].set_title('PCGDP2000')
+axs[0, 0].axis('off')
+
+# Extract the per capita GDP and regimes
+income = gdf['PCGDP1940']
+regimes = gdf['HANSON98']
+
+gdf.plot(column='HANSON98', categorical=True, ax=axs[0, 1])
+axs[0, 1].set_title('Hanson98 Regions')
+axs[0, 1].axis('off')
+
+regions = gdf.dissolve(by='HANSON98')
+cents = regions.centroid
+rp = regions.representative_point()
+regions['rp' ] = rp
+
+regions.head()
+gdf['rp'] = gdf.representative_point()
+
+#ax = gdf.plot('PCGDP1940', scheme='Quantiles')
+regions.plot(edgecolor='grey', ax=axs[1, 0])
+
+for r, region in regions.iterrows():
+    #print(region,r)
+    rpi = region['rp']
+    region_states = gdf[gdf.HANSON98==r]
+    edges = []
+    for j, state in region_states.iterrows():
+        rpj = state['rp']
+        edges.append(LineString([rpi, rpj]))
+    gdf_edges = gpd.GeoDataFrame(geometry=edges)
+    gdf_edges.plot(ax=axs[1, 0], edgecolor='k')
+rp.plot(ax=axs[1,0], color='y')
+
+axs[1, 0].set_title('Within-Regions Component')
+axs[1, 0].axis('off')
+
+k = regions.shape[0]
+edges = []
+regions.plot(edgecolor='grey', ax=axs[1, 1])
+for i in range(k-1):
+    rpi = rp.iloc[i]
+    for j in range(i+1, k):
+        rpj = rp.iloc[j]
+        edges.append(LineString([rpi, rpj]))
+        
+gdf_edges = gpd.GeoDataFrame(geometry=edges)
+gdf_edges.plot(ax=axs[1,1], edgecolor='k')
+rp.plot(ax=axs[1,1], color='y')
+axs[1, 1].set_title('Between-Regions Component')    
+axs[1, 1].axis('off')
+plt.tight_layout()
+plt.show()
+
+```
+
+
+We can apply the `theil` module from `pysal-inequality` to calculate the value of
+the overall level of inequality as measured by the global Theil index, and its
+decomposition into the between region inequality and within region inequality components:
+
+
+
+```{python}
+#| warning: false
+#| label: fig-polarization
+#| fig-cap: "Spatial Polarization"
+fig, axs = plt.subplots(2, 2)
+from inequality.theil import TheilDSim
+np.random.seed(12345)
+
+gdf.plot('PCGDP2000', ax=axs[0, 0], scheme='quantiles',
+         cmap='viridis')
+axs[0, 0].set_title('PCGDP2000')
+axs[0, 0].axis('off')
+
+# Extract the per capita GDP and regimes
+income = gdf['PCGDP2000']
+regimes = gdf['HANSON98']
+
+res = TheilDSim(income, regimes, 999)
+
+gdf['PCGDP2000r'] = np.random.permutation(gdf.PCGDP2000)
+gdf.plot(column='PCGDP2000r', ax=axs[0, 1], scheme='quantiles',
+         cmap='viridis')
+axs[0, 1].set_title('PCGDP2000 Random')
+axs[0, 1].axis('off')
+
+
+
+gdf['PCGDP2000r'] = np.random.permutation(gdf.PCGDP2000)
+gdf.plot(column='PCGDP2000r', ax=axs[1, 0], scheme='quantiles',
+         cmap='viridis')
+axs[1, 0].set_title('PCGDP2000 Random')
+axs[1, 0].axis('off')
+
+msg=f'Spatial polarization: {res.bg[0][0]/res.T:.3f}'
+msg=f'{msg}, pseudo p-value: {res.bg_pvalue[0]}'
+print(msg)
+realizations = np.array([t.bg/t.T for t in res.results])
+print(f'Ho mean: {realizations.mean():.3f}')
+
+kde = sns.kdeplot(realizations, fill=False, color='blue', ax=axs[1,1])
+x, y = kde.get_lines()[0].get_data()
+plt.legend([], [], frameon=False)
+# Fill the area to the right of the specified value
+plt.fill_between(x, y, where=(x >= realizations[0]),
+                 interpolate=True, color='red', alpha=0.5)
+
+# Add vertical line at the specified value
+plt.axvline(x=realizations[0], color='red', linestyle='--')
+plt.xlabel("Spatial Polarization")
+print(f'Theil: {res.T}')
+print(f'KB p-value: {(realizations >= realizations[0]).sum()/1000}')
+```
+
+
+
+
+The overall level of regional inequality is 0.106.  The between region component
+stands at 0.036, while the within region element is 0.070.  In relative terms,
+inequality between the regions in Mexico accounts for 34 percent of state income
+inequality, while inequality between states from the same region is the larger
+share presenting 72 percent of spatial inequality.
+
+
+The ratio of between to within region inequality has been suggested as a
+measure of *spatial polarization* [@zhang2001WhatDifference]. Since the two
+components sum to overall inequality, we can re-express the measure of spatial
+polarization as the ratio of between region to overall inequality.  Thus, the
+level of spatial polarization of state incomes stood at 34 percent in 2000 in
+Mexico.
+
+A relevant question here is 
+whether this level of spatial polarization in 2000
+should be considered high or not? Another way to express this, is to ask if the polarization is higher than
+we would expect if state incomes were randomly distributed in space in Mexico in
+2000. 
+
+We can answer this question by developing counter-factual spatial distributions
+that reflect a null hypothesis of spatially random income distributions. Given
+the $n$ observations, in our case states, there are $n!$ permutations of incomes
+that are equally likely. In @fig-polarization, the maps in the top-right
+and lower-left are two such realizations, where the observed incomes from 2000
+(top-left) have been randomly reassigned to states. 
+
+Since it is not feasible to
+generate all $32!$ maps in our case,[^factorial] we take a sample of 999 such
+maps from the distribution of
+permutations. For each of these maps we calculate the
+spatial polarization measure, and collect all measures to develop a reference
+distribution for our index under the null of spatially random income
+distributions. We evaluate our observed spatial polarization index against this
+distribution and derive a pseudo p-value as the number of counterfactual
+distributions that generate polarization levels as large as the observed value
+over the number of permutations plus one. 
+
+[^factorial]: $32! = 2.6313084e+35$.
+
+The reference distribution for the polarization index is reported in the bottom
+right of @fig-polarization. The area to the right of our observed
+polarization index of 0.34 is 0.036 of the distribution. By convention, this
+p-value points to a significant departure from the null, and we would conclude
+that the level of spatial polarization of incomes in Mexico is significantly
+different from that expected were incomes generated by a spatially random process.
+
+
+The regional decomposition is a spatially explicit measure of spatial inequality
+as it is indeed sensitive to the geographical distribution of the income
+values. It is important to note, however, that it is the spatial polarization
+index, and not the overall $T$ that is spatially explicit.  Each of the
+counterfactual spatial distributions used to construct the reference
+distribution for the spatial polarization index would still have the same
+attribute distribution, with similar means and variances, and levels of overall
+inequality.
+
+While the regional inequality decomposition is spatially explicit, it treats
+geography in an aggregated fashion.  There are, in essence, two scales of
+spatial inequality implied in this decomposition. As displayed in
+@fig-components, the within-regions component might be considered the "local"
+measure as it compares incomes belonging to the same region to the mean income
+of the group. The between-regions inequality component, by contrast, views spatial
+inequality in a more aggregate fashion considering only the differences in
+regional means.
+
+A close inspection of the decomposition @eq-decomp reveals both the within and
+between inequality components are functions of a $T$ index. In the former case
+this is
+applied to states from the same region, and in the latter case, the $T$ is applied to the
+means of regional incomes.  For the within region component, the actual spatial
+distribution of the member states within each of their regions is ignored. By the same token, the
+geographical location of the regions is immaterial to the calculation of the
+between region component. In other words, once the states have been assigned to
+regions, geography no longer matters.
+Thus, we draw a distinction between *regional* inequality decomposition and *spatial* inequality decomposition.
+
+
+### Spatial Inequality Decomposition
+<!-- - spatial gini  -->
+
+To capture these ignored dimensions of the spatial distribution, @rey2013SpatialDecomposition suggested a
+spatial decomposition of the Gini coefficient. Starting from the Gini
+coefficient expressed as half the relative mean absolute deviation:[^gini]
+$$
+Gini = \sum_{i=1}^n \sum_{j=1}^n \frac{|y_i - y_j|}{2n^2 \bar{y}}
+$$ {#eq-gini-mad}
+the sum of the absolute deviations can be decomposed as:
+$$
+\sum_{i=1}^n \sum_{j=1}^n |y_i - y_j| = \sum_{i=1}^n \sum_{j=1}^n w_{i,j} |y_i -
+y_j| + (1-w_{i,j})\sum_{i=1}^n \sum_{j=1}^n |y_i - y_j|
+$$ {#eq-gini-sad}
+where $w_{i,j} = 1$ if states $i$ and $j$ are geographical neighbors,
+$w_{i,j}=0$ otherwise. Here we define neighbors as states that share a border.
+
+[^gini]: It is sometimes stated that the maximum value of the Gini in this form is 1 [e.g., @wang2024RobustMethod]. This is technically incorrect, as in in this form, the Gini has a range of $[0, (n-1)/n]$. As $n$ grows larger, the upper bound approaches 1. Moreover, because the upper bound is a function of $n$, care should be taken when using the Gini in this form when comparing distributions of different sizes. 
+
+Substituting @eq-gini-sad into @eq-gini-mad gives:
+$$
+Gini = \sum_{i=1}^n \sum_{j=1}^n \frac{w_{i,j} |y_i - y_j|}{2n^2 \bar{y}} +
+\sum_{i=1}^n \sum_{j=1}^n \frac{ (1-w_{i,j}) |y_i - y_j|}{2n^2 \bar{y}}
+$$ {#eq-gini-spatial}
+The first term represents a measure of inequality between neighboring states,
+while the second term captures inequality between "distant" pairs of states. 
+For most spatial configurations, the number of neighboring pairs will be
+dwarfed by the number of pairs of states that are distant. So while, in the case
+of spatially clustered income values, the expectation would be for the average
+difference in incomes to be smaller for neighboring rather than distant states,
+our measure of spatial clustering here has to take into account the different
+cardinality of the two sets of pairs. As such, the relevant comparison is if the
+first term (second term) is smaller (larger) than what could be expected if
+state incomes were randomly distributed in space.
+
+We apply the Spatial Gini Decomposition to Mexican State incomes in 2000 using
+`pysal-inequality` in @fig-gini-spatial. The adjacency graph based on the
+criterion of Queen neighbors is shown in the top-right figure. An edge defines a
+pair of neighboring states. 
+
+
+
+
+```{python}
+#| warning: false
+#| label: fig-gini-spatial
+#| fig-cap: "Spatial Inequality Decomposition"
+
+fig, axs = plt.subplots(2, 2)
+from inequality.gini import Gini_Spatial
+import libpysal
+np.random.seed(12345)
+
+
+gdf.plot('PCGDP2000', ax=axs[0, 0], scheme='quantiles', cmap='viridis')
+axs[0, 0].set_title('PCGDP2000')
+axs[0, 0].axis('off')
+
+
+wq = libpysal.weights.Queen.from_dataframe(gdf)
+wq.transform = 'B'
+gs2000 = Gini_Spatial(gdf["PCGDP2000"], wq)
+
+income = gdf['PCGDP1940']
+
+gdf.plot(ax=axs[0, 1])
+axs[0, 1].set_title('Neighbor Graph')
+axs[0, 1].axis('off')
+
+
+wq.plot(gdf, ax=axs[0,1])
+
+axs[1, 0].set_title('Counterfactual')
+axs[1, 0].axis('off')
+gdf['PCGDP2000r'] = np.random.permutation(gdf.PCGDP2000)
+gdf.plot(column='PCGDP2000r', ax=axs[1,0], scheme='quantiles',
+         cmap='viridis')
+
+adsum = gs2000.dtotal
+realizations = gs2000.wcgp / adsum
+kde = sns.kdeplot(realizations, fill=False, color='blue', ax=axs[1,1])
+x, y = kde.get_lines()[0].get_data()
+plt.legend([], [], frameon=False)
+# Fill the area to the right of the specified value
+plt.fill_between(x, y, where=(x >= gs2000.wcg/adsum),
+                 interpolate=True, color='red', alpha=0.5)
+
+# Add vertical line at the specified value
+plt.axvline(x=gs2000.wcg/adsum, color='red', linestyle='--')
+plt.xlabel("Spatial Gini")
+
+
+plt.tight_layout()
+plt.show()
+G = gs2000
+msg = f'Expected Distant SADS/Total SADS: {G.e_wcg/adsum:.2f}'
+msg = f'{msg}, Observed: {G.wcg/adsum:.2f}\n p-value: {G.p_sim}'
+print(msg)
+```
+For inference on the spatial Gini, the same
+computationally based approach that we used in the Theil decomposition is
+employed. One of the counterfactuals representing a random permutation of the
+incomes is shown in the lower-left figure. The reference distribution for the
+spatial Gini index is shown on the bottom right. Here the spatial Gini is
+expressed as the share of the overall absolute pair-wise differences due to
+inequality between distant (non-neighbor) pairs of states. The pseudo p-value
+(0.01) for the observed index is calculated as the area to its right under the
+distribution.
+
+Under the null, the distant pairs should account for 86 percent of the absolute
+differences, however, the observed share is much higher at 90 percent. In fact,
+the p-value indicates that none of the counterfactual spatial distributions of
+income generated a spatial Gini as large as the one observed.
+In other words, the inequality between distant pairs of states is larger than
+the inequality between neighboring states. This pairwise orientation of the
+spatial Gini decomposition offers a useful complement over the regional
+decomposition of the Theil approach, as it introduces a more spatially explicit
+view of the income distribution that demonstrates how spatial autocorrelation
+affects overall inequality across the states.[^extension]
+
+[^extension]: For a recent extension of the spatial Gini decomposition see @panzera2020MeasuringSpatial.
+
+It should be noted that the spatial Gini decomposition does not allow for the
+exact additivity of within-group and between-group inequality components. This
+is because the Gini index is affected by the degree of overlap in incomes of
+states belonging to different regions.  Any overlap complicates the
+decomposition because part of the total inequality arises from the overlap
+itself, which cannot be easily attributed to either within-group or
+between-group inequality. So instead of a two-way additive decomposition, a
+residual term is required due to the overlap. Because this residual term is
+difficult to interpret, the Gini is seldom used for regional inequality
+decomposition.
+
+
+
+
+
+
+
+
+### Weighted or Unweighted Inequality: Places versus People
+
+A final issue we explore is the question of whether the measure of spatial
+inequality should take into account the population sizes of the enumeration
+units. This was briefly mentioned earlier in the context of measuring
+international inequality. In the regional literature, a debate rages as to whether
+population weighted or unweighted approaches should be used
+to measure spatial inequality [@gluschenko2018MeasuringRegional] .
+
+To frame the debate, it is helpful to consider three different concepts of
+inequality at the international scale suggested by
+@milanovic2007WorldsApart. Here we adapt them to the question of measuring
+spatial inequality at the sub-national scale.  Concept 1 is unweighted spatial
+inequality, where each state is one unit of measurement, and we use its per
+capita income irrespective of the state's population.  In addition to being the
+dominant approach in regional inequality analysis, this concept is at the core
+of the literature on regional convergence [@rey1999us] where the focus is on
+whether the incomes of poor and rich states in a system are coming together or
+growing apart over time.
+
+
+Concept 2 takes into account the population of the individual states,
+recognizing that a state like Nuevo Leon with a population of 8.6 million in
+2000 having its average income increase by 10,000 USD is likely to have a larger
+impact than is seeing the per capita income of Colima, with a population of
+500,000 change by the same amount.  So here, the per capita incomes of the
+states are now weighted by the population of the states. This is weighted
+spatial inequality.
+
+Finally, Concept 3, measures inequality between all the individuals in the
+country. Here we would require information on the individuals both in terms of
+their incomes and their state of residence. Were it available, such data would
+allow us to measure personal income inequality. However, in the literature on
+regional inequality, such data is scarce, and so this concept is not
+operationalized.
+
+This means the debate in the regional literature is between proponents of
+Concept 1 and Concept 2.
+
+Thus far in this paper, we have adopted the Concept 1 definition of spatial
+inequality, that is, unweighted spatial inequality. We can contrast this with the
+perspective offered by Concept 2, by developing the Weighted Pengram under
+concept 2 shown in @fig-weighted-pengram and comparing it with the Unweighted
+Pengram from @fig-pen2000.  The number of bars for each state in the Weighted
+Pengram is proportional to the population of that state. The logic behind the
+weighted spatial inequality is that rather than having one representative
+observation (individual) from the state with their level of income equal to the
+state per capita income, now there are a proportional number of individuals from
+each state having their level of income equal to the state's per capita income.
+
+```{python}
+#| echo: false
+#| warning: false
+#| label: fig-weighted-pengram
+#| fig-cap: "Populated Weighted Pengram"
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+import geopandas as gpd
+
+def pen_weighted(df, column, weight, name, normalize=True, total_bars=100):
+    # Calculate number of bars for each state
+    df['NumBars'] = (df[weight] / df[weight].sum() * total_bars).apply(math.ceil).astype(int)
+    
+    # Create a new DataFrame with repeated rows
+    repeated_rows = []
+    for _, row in df.iterrows():
+        repeated_rows.extend([row] * row['NumBars'])
+    
+    df_repeated = pd.DataFrame(repeated_rows)
+    
+    # Sort by the specified column
+    df_sorted = df_repeated.sort_values(by=column).reset_index(drop=True)
+    
+    # Assign a unique color to each state
+    unique_states = df[name].unique()
+    colors = plt.cm.get_cmap('tab20', len(unique_states))
+    color_map = {state: colors(i) for i, state in enumerate(unique_states)}
+    bar_colors = df_sorted[name].map(color_map)
+    
+    # Plotting
+    fig, ax = plt.subplots()
+    
+    # Create the bars
+    bar_positions = np.arange(len(df_sorted))
+    bar_heights = df_sorted[column]
+    bar_widths = 1  # Equal width for all bars
+    
+    bars = ax.bar(bar_positions, bar_heights, width=bar_widths, color=bar_colors, edgecolor='black')
+    tick_width = plt.rcParams['xtick.major.width']
+    
+    # Add x-ticks and labels alternatively
+    first_positions = []
+    first_labels = []
+    current_state = None
+    state_index = 0
+    last_name = df_sorted[name].iloc[-1]
+    for i in range(len(bar_positions)):
+        label = df_sorted[name].iloc[i]
+        if label != current_state:
+            if state_index % 2 == 0 or label == last_name:
+                first_positions.append(bar_positions[i])
+                first_labels.append(df_sorted[name].iloc[i])
+            else:
+                text_y_position = bar_heights[i] + 0.05 * max(bar_heights)
+                ax.plot([bar_positions[i], bar_positions[i]], [bar_heights[i], text_y_position - 550 ],
+                        color='black', linewidth=tick_width)
+                ax.text(bar_positions[i], text_y_position, df_sorted[name].iloc[i], ha='center', rotation=90, fontsize=8)
+            current_state = df_sorted[name].iloc[i]
+            state_index += 1
+    
+    ax.set_xticks(first_positions)
+    ax.set_xticklabels(first_labels, rotation=90, fontsize=8)
+    
+    # Labeling the plot
+    ax.set_xlabel(name)
+    ax.set_ylabel(column)
+    ax.set_title(f'Weighted Pen Parade of {name} by {column}')
+    
+    plt.show()
+
+gdf = gpd.read_file('/home/serge/para/1_projects/code-pysal-inequality/inequality/notebooks/weighted.shp')
+pen_weighted(gdf[['PCGDP2000', 'populati_1', 'State']], 'PCGDP2000', 'populati_1', 'State')
+#gdf.columns.values
+```
+
+A fundamental issue with this approach is that it assumes that inequality among
+individuals within the state is zero, since all members have the same level of
+income. This also implies that for two states that have different levels of per
+capita income, the poorest members of the richer state will be richer than the
+richest member of the poorer state. This is at odds with empirical reality.
+
+
+
+
+
+
+# Conclusion
+Regional inequality continues to attract the attention of researchers and policy
+makers alike.  This chapter has presented the key methodological approaches
+available to researchers interested in analyzing spatial disparities. By
+highlighting the challenges posed in adapting classical inequality measures to
+the question of spatial inequality, the chapter draws important distinctions
+between different types of inequality decomposition approaches based on their
+treatment of space. These methods reveal the spatial dimensions of inequality,
+particularly the extent to which income disparities are geographically
+clustered.
+
+While the focus has been on regional inequality at the sub-national scale, these
+methods have a broad scope that researchers can apply at different spatial
+scales, from analyzing geographical disparities at the international level
+[@redding2004EconomicGeography], inter-regional [@bathelt2024NatureCauses], as
+well as intra-urban scale [@oecd2018DividedCities].  This scope is vital, as the
+mechanisms of inequality can differ at each scale. For example, trade policy
+likely plays a more significant role on an international scale. At the same
+time, industrial restructuring is more influential on an inter-regional scale,
+and residential sorting is operative on an intra-urban scale. Furthermore, the
+resulting patterns of spatial inequality may also vary across these scales.  The
+work by @ganong2017WhyHas shows a substantial divergence of incomes across
+states but reports a more mixed pattern when measuring convergence using labor
+market areas.
+
+Linking the spatial inequality measures to possible policy interventions offers
+some possibilities. For example, the distinction between
+inter-regional (between-region) and intra-regional (within-region) inequality in
+the decomposition may help researchers and policymakers design such
+interventions in a tailored fashion. If between-region inequality dominates,
+there may be a strong case for place-based policies.  Conversely, if the
+within-region inequality component accounts for the majority share, more
+nationally oriented policies, such as federal tax laws, may be more appropriate.
+
+In future research, it would be beneficial to investigate the relationship
+between spatial inequality and place mobility. Place mobility refers to the
+economic trajectory of a location within the national context, similar to the
+concept of inter-generational income mobility
+[@rey2023SpatialInequality]. Exploring the link between place mobility and
+spatial polarization is crucial, especially how the movement of states within
+the income distribution impacts broader regional inequalities. Moreover, gaining
+insight into the interaction between place mobility and "place-based policies"
+could help in designing more effective regional development strategies that
+reduce inequality while fostering economic mobility.
+
+<!-- ## References -->
