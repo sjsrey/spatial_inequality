@@ -20,5 +20,9 @@ preview:
 update:
 	quarto update
 
+# ghp
+ghp:
+	quarto publish gh-pages
+
 # Phony targets (not actual files)
 .PHONY: all render clean preview update
