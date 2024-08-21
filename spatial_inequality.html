@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sergio J. Rey">
+<meta name="keywords" content="spatial inequality, disparities, regions">
+
+<title>Spatial Inequality</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Spatial Inequality</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="http://sergrey.org/">Sergio J. Rey</a> <a href="mailto:srey@sdsu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-5857-9762" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            San Diego State University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>The study of spatial inequality has gained prominence due to its significant implications for both scientific research and policy-making. This chapter explores the concepts and computational methods used to measure spatial inequality, emphasizing a reproducible approach that social scientists can apply to their research. The analysis focuses on geographic income disparities at the sub-national level, using Mexico as a case study. By examining various a-spatial and spatially explicit approaches, the chapter highlights the complexities of measuring inequality across places and over time. The discussion includes a review of traditional inequality measures and introduces spatial decomposition methods that account for the geographical distribution of income. The findings underscore the importance of integrating spatial considerations into inequality analysis to better understand the patterns and drivers of regional disparities, thereby informing more effective and equitable policy interventions.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>spatial inequality, disparities, regions</p>
+  </div>
+</div>
+
+</header>
+
+
+<blockquote class="blockquote">
+<p>Geographic income inequality has risen more than 40% between 1980 and 2021.</p>
+<p>– <span class="citation" data-cites="u.s.departmentofcommerce2023GeographicInequality">U.S. Department of Commerce (<a href="#ref-u.s.departmentofcommerce2023GeographicInequality" role="doc-biblioref">2023</a>)</span></p>
+</blockquote>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>The study of spatial, or geographical, disparities is crucial for both scientific and policy-oriented reasons. Scientifically, understanding these disparities allows researchers to uncover patterns and correlations that are vital for advancing knowledge in various fields such as economics <span class="citation" data-cites="kanbur2005SpatialInequality">(<a href="#ref-kanbur2005SpatialInequality" role="doc-biblioref">Kanbur and Venables, 2005</a>)</span>, public health <span class="citation" data-cites="debnath2024GeographicDisparities">(<a href="#ref-debnath2024GeographicDisparities" role="doc-biblioref">Deb Nath and Odoi, 2024</a>)</span>, and environmental science <span class="citation" data-cites="venter2023EnvironmentalJustice">(<a href="#ref-venter2023EnvironmentalJustice" role="doc-biblioref">Venter et al., 2023</a>)</span>. From a policy perspective, recognizing and addressing geographical disparities is essential for promoting social equity and economic development. A prime example is the European Union's Cohesion Policy, where the reduction of spatial disparities between member regions takes center stage <span class="citation" data-cites="agnieszka2019RegionalInequalities">(<a href="#ref-agnieszka2019RegionalInequalities" role="doc-biblioref">Agnieszka, 2019</a>)</span>. Additionally, understanding spatial disparities can inform urban planning and environmental policies to create more sustainable and resilient communities.</p>
+<p>By bridging the gap between scientific research and policy implementation, the study of geographical disparities helps in crafting evidence-based strategies that promote balanced regional development, reduce inequalities, and improve the overall quality of life. Ultimately, this interdisciplinary approach fosters a deeper understanding of the complex dynamics at play and supports the creation of more inclusive and effective policies.</p>
+<p>The field of spatial data science <span class="citation" data-cites="rey2023GeographicData">(<a href="#ref-rey2023GeographicData" role="doc-biblioref">Rey et al., 2023</a>)</span> provides tools to visualize and analyze spatial inequality. Thus, it is well-positioned to support such interdisciplinary research. The goal of this chapter is to introduce social scientists to the concepts and measurement of spatial inequality. The emphasis is on adopting a computationally focused and reproducible treatment that would allow researchers to apply the methods introduced here to their own investigations.</p>
+<p>The chapter proceeds as follows. We first develop a conceptual understanding of the measurement of spatial inequality. Next, we describe the computational environment employed to analyze spatial disparities. The specific case study is then introduced. We then discuss different a-spatial approaches towards measuring inequality, followed by a detailed exploration of spatially explicit approaches for measuring geographical disparities. The chapter concludes with the identification of future research areas in the field of spatial inequality.</p>
+</section>
+<section id="inequality-concepts" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Inequality Concepts</h1>
+<p>The growing concern with inequality brings to mind Peter Drucker’s often-cited principle, “You can’t improve what you don’t measure.” Before we can address the technical challenges of measuring spatial inequality, it is essential to first grapple with the conceptual issues surrounding what we are measuring.</p>
+<p>It is important to distinguish between terms that frequently appear in the inequality literature: equality (inequality) and equity (inequity). Equality refers to the state of being equal, particularly in status, rights, and opportunities. In economics, this often means distributing resources and opportunities uniformly across all individuals or groups.</p>
+<p>Equity, conversely, involves fairness and justice in the distribution of resources and opportunities. It considers individual needs and circumstances, aiming to level the playing field. Therefore, although inequality and inequity are interconnected within the context of social justice <span class="citation" data-cites="sen2004InequalityReexamined">(<a href="#ref-sen2004InequalityReexamined" role="doc-biblioref">Sen, 2004</a>)</span>, they are not synonymous.</p>
+<p>For instance, an equal distribution of resources, such as uniform per capita expenditure on students, can create inequities by ignoring the challenges faced by students in different contexts, such as urban versus rural districts or advantaged versus disadvantaged neighborhoods <span class="citation" data-cites="tine2017GrowingRural">(<a href="#ref-tine2017GrowingRural" role="doc-biblioref">Tine, 2017</a>)</span>. Conversely, some distributions are intentionally unequal to achieve greater equity. Progressive income tax schemes, where the tax rate increases with income, are a prime example of this approach <span class="citation" data-cites="ledic2023TaxProgressivity">(<a href="#ref-ledic2023TaxProgressivity" role="doc-biblioref">Ledić et al., 2023</a>)</span>.</p>
+<p>A closely related distinction is between equality of outcomes and equality of opportunities. Inequality in outcomes refers to the unequal distribution of income, wealth, and resources among individuals in a society, which can result from factors such as luck, effort, and inherited wealth. In contrast, inequality in opportunities focuses on the unequal access to education, healthcare, and other essential services that enable individuals to achieve their potential, irrespective of their background <span class="citation" data-cites="roemer1998EqualityOpportunity">(<a href="#ref-roemer1998EqualityOpportunity" role="doc-biblioref">Roemer, 1998</a>)</span>. Studies may differ, then, in whether they measure spatial inequality in outcomes <span class="citation" data-cites="khedmatimorasae2024SocialDeterminants">(<a href="#ref-khedmatimorasae2024SocialDeterminants" role="doc-biblioref">Khedmati Morasae et al., 2024</a>)</span> or spatial disparities in opportunities <span class="citation" data-cites="knaap2017CartographyOpportunity">(<a href="#ref-knaap2017CartographyOpportunity" role="doc-biblioref">Knaap, 2017</a>)</span>.</p>
+<p>In addition to the distinction between inequality and inequity, and between outcomes versus opportunities, there is much variation in the substantive variable under focus. Income studies dominate the literature quantitatively <span class="citation" data-cites="gaubert2021TrendsUS">(<a href="#ref-gaubert2021TrendsUS" role="doc-biblioref">Gaubert et al., 2021</a>)</span> and are sometimes contrasted with studies of the inequality of wealth <span class="citation" data-cites="suss2024GEOWEALTHUSSpatial">(<a href="#ref-suss2024GEOWEALTHUSSpatial" role="doc-biblioref">Suss et al., 2024</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> More granular studies examine disparities in the sources of income, such as wages, as well as employment rates <span class="citation" data-cites="overman2022SpatialDisparities">(<a href="#ref-overman2022SpatialDisparities" role="doc-biblioref">Overman and Xu, 2022</a>)</span>. Outside of economics, topics such as disparities in educational outcomes <span class="citation" data-cites="graetz2020MappingDisparities">(<a href="#ref-graetz2020MappingDisparities" role="doc-biblioref">Graetz et al., 2020</a>)</span>, health outcomes <span class="citation" data-cites="khedmatimorasae2024SocialDeterminants">(<a href="#ref-khedmatimorasae2024SocialDeterminants" role="doc-biblioref">Khedmati Morasae et al., 2024</a>)</span>, voting patterns <span class="citation" data-cites="barber2022400Million">(<a href="#ref-barber2022400Million" role="doc-biblioref">Barber and Holbein, 2022</a>)</span>, among many others, are replete across the social and life sciences.</p>
+<p>The unit of measurement employed in inequality analysis is also an important consideration. <span class="citation" data-cites="sala-i-martin2006WorldDistribution">Sala-i-Martin (<a href="#ref-sala-i-martin2006WorldDistribution" role="doc-biblioref">2006</a>)</span> demonstrates that when using countries as the unit of analysis, the picture that emerges is one of large and static levels of international inequality. However, when the analysis used countries weighted by their populations, the view is one of declining inequality over time. Later, we shall see that this choice of weighting versus non-weighting of the units is an important issue in spatial inequality measurement.</p>
+<p>There is much variation across the inequality literature in the unit of measure. Studies of personal income inequality often focus on data recorded for individuals <span class="citation" data-cites="piketty2003IncomeInequality">(<a href="#ref-piketty2003IncomeInequality" role="doc-biblioref">Piketty and Saez, 2003</a>)</span>. Other studies take the household or family as the unit of analysis <span class="citation" data-cites="brandolini2011IncomeInequality">(<a href="#ref-brandolini2011IncomeInequality" role="doc-biblioref">Brandolini and Smeeding, 2011</a>)</span>. In both cases, the focus is on income inequality across people. This is an essential point of departure for our study of spatial inequality, which is where the unit of measurement is a geographical area. In other words, in spatial inequality analysis, the focus is inequality across places.</p>
+<p>Still further, some studies examine the spatial distribution of personal income inequality <span class="citation" data-cites="partridge1998StatePatterns frank2009InequalityGrowth">(<a href="#ref-partridge1998StatePatterns" role="doc-biblioref">Partridge et al., 1998</a>; <a href="#ref-frank2009InequalityGrowth" role="doc-biblioref">Frank, 2009</a>)</span>—that is, how inequality between individuals within a state varies across states. In the spatially oriented inequality studies, the geographical unit of analysis can range from countries <span class="citation" data-cites="milanovic2018GlobalInequality">(<a href="#ref-milanovic2018GlobalInequality" role="doc-biblioref">Milanović, 2018</a>)</span>, to intra-national regions <span class="citation" data-cites="ganong2017WhyHas">(<a href="#ref-ganong2017WhyHas" role="doc-biblioref">Ganong and Shoag, 2017</a>)</span>, to cities <span class="citation" data-cites="u.s.departmentofcommerce2023GeographicInequality">(<a href="#ref-u.s.departmentofcommerce2023GeographicInequality" role="doc-biblioref">U.S. Department of Commerce, 2023</a>)</span>, and down to neighborhoods <span class="citation" data-cites="nijman2020UrbanInequalities">(<a href="#ref-nijman2020UrbanInequalities" role="doc-biblioref">Nijman and Wei, 2020</a>)</span>.</p>
+<p>A final inequality concept we need to consider is the role of time. One question is the time unit. Is income measured per person, per year, or is some life-time earnings, or permanent income <span class="citation" data-cites="hall1978StochasticImplications">(<a href="#ref-hall1978StochasticImplications" role="doc-biblioref">Hall, 1978</a>)</span> measure employed? A second question pertains to whether the study of inequality is a snapshot at one point in time or focuses on the dynamics of income distribution.</p>
+<p>Addressing all these issues is beyond the scope of any one study. We raise them here in order to situate the study of spatial inequality in a much broader context. For this chapter, we will hone in on the question of measuring spatial income inequality at the sub-national scale.</p>
+</section>
+<section id="computational-environment" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Computational Environment</h1>
+<p>In the following section, we present the packages and computational environment used. The narrative following code cells explains the computational concepts.</p>
+<section id="packages" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">3.1</span> Packages</h2>
+<div id="7cdb68c1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inequality <span class="im">as</span> ineq</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> libpysal <span class="im">as</span> lps</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> watermark</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext watermark</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>watermark <span class="op">-</span>a <span class="st">"Sergio Rey"</span> <span class="op">-</span>u <span class="op">-</span>n <span class="op">-</span>t <span class="op">-</span>v <span class="op">\</span></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>p numpy,pandas,scipy,matplotlib,inequality,seaborn,libpysal</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">We alias the package <code>inequality</code> as <code>ineq</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">We do the same for <code>numpy</code></span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The watermark extension is already loaded. To reload it, use:
+  %reload_ext watermark
+Author: Sergio Rey
+
+Last updated: Wed Aug 21 2024 11:05:59
+
+Python implementation: CPython
+Python version       : 3.12.4
+IPython version      : 8.26.0
+
+numpy     : 2.0.1
+pandas    : 2.2.2
+scipy     : 1.14.0
+matplotlib: 3.9.1
+inequality: 0.1.dev170+gd70b5c0.d20240820
+seaborn   : 0.13.2
+libpysal  : 4.12.0
+</code></pre>
+</div>
+</div>
+<p>Our analysis of spatial inequality utilizes packages from the Python Spatial Analysis Library (<code>pysal</code>) <span class="citation" data-cites="rey2022PySALEcosystem">(<a href="#ref-rey2022PySALEcosystem" role="doc-biblioref">Rey et al., 2022</a>)</span>, together with <code>geopandas</code> <span class="citation" data-cites="jordahl2019GeopandasGeopandas">(<a href="#ref-jordahl2019GeopandasGeopandas" role="doc-biblioref">Jordahl et al., 2019</a>)</span> and <code>seaborn</code> <span class="citation" data-cites="waskom2021SeabornStatistical">(<a href="#ref-waskom2021SeabornStatistical" role="doc-biblioref">Waskom, 2021</a>)</span>. The main package focusing on measuring spatial disparities is <code>inequality</code>, which implements analytics for measuring a-spatial inequality and spatially explicit inequality measures. Also, from <code>pysal</code>, we will depend on the <code>libpysal</code> package for constructing spatial weights that are central to the analysis of spatial inequality. <code>geopandas</code> provides for spatial data processing and producing maps of the spatial distribution of income, while we adopt <code>seaborn</code> for constructing a-spatial graphical views of inequality.</p>
+<p>For purposes of reproducibility, we include the <code>watermark</code> package which reports the version numbers of each of the packages we use in our analysis.</p>
+</section>
+</section>
+<section id="data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Data</h1>
+<p>To illustrate the core concepts in spatial inequality measurement, we will rely on a data set for the states in Mexico <span class="citation" data-cites="rey2010InterregionalInequality">(<a href="#ref-rey2010InterregionalInequality" role="doc-biblioref">Rey and Sastré-Gutiérrez, 2010</a>)</span>. The variable of interest is state per capita gross domestic product measured in 2000 USD measured for each decade from 1940-2000 for each of 32 areas consisting of the 31 federal states of Mexico plus Mexico City. This data-set is included as an example data-set in <code>libpysal</code>.</p>
+<div id="e1e53db4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lps.examples.explain(<span class="st">"mexico"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) "Interregional inequality dynamics in Mexico." Spatial Economic Analysis, 5: 277-298.
+</code></pre>
+</div>
+</div>
+<p>In addition to the income data contained in the <code>mexico.csv</code> file, there are two additional files available in this example: <code>mexico.gal</code> which stores information about the contiguity relationships between the states, and <code>mexicojoin.shp</code> which is a shapefile.</p>
+<p><a href="#fig-states" class="quarto-xref">Figure&nbsp;1</a> lists the locations of the 32 Mexican states.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div id="cell-fig-states" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-states" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-states-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-states-output-1.png" width="639" height="535" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-states-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: States of Mexico
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="9be5465b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pth <span class="op">=</span> lps.examples.get_path(<span class="st">"mexico.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(pth)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of dataframe: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First 5 rows of dataframe:</span><span class="ch">\n</span><span class="ss"> </span><span class="sc">{</span>df<span class="sc">.</span>head()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df.head()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Variables: </span><span class="sc">{</span>df<span class="sc">.</span>columns<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape of dataframe: (32, 13)
+First 5 rows of dataframe:
+                  State  pcgdp1940  pcgdp1950  pcgdp1960  pcgdp1970  pcgdp1980  \
+0       Aguascalientes    10384.0     6234.0     8714.0    16078.0    21022.0   
+1      Baja California    22361.0    20977.0    17865.0    25321.0    29283.0   
+2  Baja California Sur     9573.0    16013.0    16707.0    24384.0    29038.0   
+3             Campeche     3758.0     4929.0     5925.0    10274.0    12166.0   
+4              Chiapas     2934.0     4138.0     5280.0     7015.0    16200.0   
+
+   pcgdp1990  pcgdp2000  hanson03  hanson98  esquivel99  inegi  inegi2  
+0    20787.0    27782.0       2.0       2.0         3.0    4.0     4.0  
+1    26839.0    29855.0       1.0       1.0         5.0    1.0     1.0  
+2    25842.0    26103.0       2.0       2.0         6.0    1.0     1.0  
+3    51123.0    36163.0       6.0       5.0         4.0    5.0     5.0  
+4     8637.0     8684.0       5.0       5.0         7.0    5.0     5.0  
+
+Variables: Index(['State', 'pcgdp1940', 'pcgdp1950', 'pcgdp1960', 'pcgdp1970',
+       'pcgdp1980', 'pcgdp1990', 'pcgdp2000', 'hanson03', 'hanson98',
+       'esquivel99', 'inegi', 'inegi2'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<p>We can read the <code>mexico.csv</code> file using <code>pandas</code> to create a <code>DataFrame</code> that will hold the attributes of interest. This dataframe has the shape <code>(32,13)</code> indicating there are 32 observations on 13 variables. The 13 variables include the per capita gross domestic product for each decade, for example <code>pcgdp1990</code> for 1990, together with the state name, and six variables that define different regionalization schemes for the country. We will return to these regional variables in a later section.</p>
+</section>
+<section id="measuring-spatial-inequality-in-mexico" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Measuring Spatial Inequality in Mexico</h1>
+<section id="visualizing-inequality-in-distributions" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="visualizing-inequality-in-distributions"><span class="header-section-number">5.1</span> Visualizing Inequality in Distributions</h2>
+<p>We begin with different perspectives on the distribution of state incomes in Mexico. From a geographical perspective, <a href="#fig-mappcgdp2000" class="quarto-xref">Figure&nbsp;2</a> shows the spatial distribution of incomes for the last year of the sample (2000).</p>
+<div id="cell-fig-mappcgdp2000" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pth <span class="op">=</span> lps.examples.get_path(<span class="st">"mexicojoin.shp"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gpd.read_file(pth)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> gdf.plot(column<span class="op">=</span><span class="st">"PCGDP2000"</span>, k<span class="op">=</span><span class="dv">5</span>, scheme<span class="op">=</span><span class="st">"Quantiles"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>              legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>              edgecolor<span class="op">=</span><span class="st">'grey'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>              legend_kwds<span class="op">=</span>{<span class="st">"loc"</span>: <span class="st">"center left"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"bbox_to_anchor"</span>: (<span class="dv">1</span>, <span class="fl">0.5</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"fmt"</span>: <span class="st">"</span><span class="sc">{:.0f}</span><span class="st">"</span>})</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"PC GDP 2000"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-mappcgdp2000" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mappcgdp2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-mappcgdp2000-output-1.png" width="688" height="351" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mappcgdp2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Per Capita Gross Domestic Product by State (Quintiles)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This is a choropleth map using quintiles to classify the incomes. The visual impression is that incomes are not randomly distributed in Mexico, as the states with incomes below the bottom quintile are more concentrated in the south, while in the north, the highest income states dominate. We will be able to make more quantitative evaluation of this spatial pattern later on in this chapter.</p>
+<p><a href="#fig-pen2000" class="quarto-xref">Figure&nbsp;3</a> presents a different perspective on income distribution based on the concept of Pen’s Parade, introduced by Dutch economist Jan Pen <span class="citation" data-cites="pen1971IncomeDistribution">(<a href="#ref-pen1971IncomeDistribution" role="doc-biblioref">Pen, 1971</a>)</span>. The metaphor uses a Parade to illustrate economic inequality, with each person representing a state in the economy, and their height being proportional to the state’s per capita income. The Parade starts with the shortest individuals depicting the poorest states, gradually increasing in height as income rises. At the end of the parade, the tallest individuals represent the most affluent states, highlighting the significant income disparities across states. This visual tool showcases the inequality in income distribution. The parade uses two different scales, with the x-axis showing the ordinal distances between states and the y-axis representing the interval distances in their per capita incomes.</p>
+<div id="cell-fig-pen2000" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.pen <span class="im">import</span> pen</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> pen(gdf, <span class="st">'PCGDP2000'</span>, <span class="st">'NAME'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-pen2000" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pen2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-pen2000-output-1.png" width="757" height="565" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pen2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Pen’s Parade Per Capita Gross Domestic Product by State 2000
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can start to integrate the spatial and attribute distributions together using a <code>pengram</code> from the <code>pysal-inequality</code> package:</p>
+<div id="cell-fig-pengram2000" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.pen <span class="im">import</span> pengram</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> pengram(gdf, <span class="st">'PCGDP2000'</span>, <span class="st">'NAME'</span>, xticks<span class="op">=</span><span class="va">False</span>, leg_pos<span class="op">=</span><span class="st">'lower left'</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        fmt<span class="op">=</span><span class="st">"</span><span class="sc">{:.0f}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-pengram2000" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pengram2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-pengram2000-output-1.png" width="614" height="386" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pengram2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Pengram Per Capita Gross Domestic Product by State 2000
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown in <a href="#fig-pengram2000" class="quarto-xref">Figure&nbsp;4</a>, the <code>pengram</code> combines the Pen’s Parade alongside the choropleth map. This affords a more granular view of the distribution than those offered by either view in isolation. For example, one of the well-known limitations of a quintile classed map is that the intra-class variation is obscured. In the <code>pengram</code>, the intra-class variation now becomes visible through the Pen’s Parade, revealing the much larger absolute and relative variance above the upper quintile relative to the other classes.</p>
+<p>A second feature of the <code>pengram</code> is the ability to query for specific observations. This makes it possible to locate the position of a state in both the Pen’s Parade (attribute space) as well as on the map (geographical space). We do this for states occupying the two extremes of the attribute distribution: Chiapas and Distrito Federal in <a href="#fig-pengramquery" class="quarto-xref">Figure&nbsp;5</a>. While the two reside in the extremes of the attribute distribution, the high income Distrito Federal is in the center of the geographic distribution while Chiapas is on the southern border of the country. Moreover, although Distrito Federal stands out in the Pen’s Parade, its small geographic area makes it difficult to identify on the map without the query functionality of the pengram.</p>
+<div id="cell-fig-pengramquery" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.pen <span class="im">import</span> pengram</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> pengram(gdf, <span class="st">'PCGDP2000'</span>, <span class="st">'NAME'</span>,  leg_pos<span class="op">=</span><span class="st">'lower left'</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            fmt<span class="op">=</span><span class="st">"</span><span class="sc">{:.0f}</span><span class="st">"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            xticks<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            query<span class="op">=</span>[<span class="st">'Chiapas'</span>, <span class="st">'Distrito Federal'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-pengramquery" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pengramquery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-pengramquery-output-1.png" width="614" height="386" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pengramquery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Querying the Pengram of Per Capita Gross Domestic Product by State 2000
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!--
+
+::: {#434706f0 .cell execution_count=9}
+``` {.python .cell-code}
+figsize = (8, 6)
+years = range(1940, 2010, 10)
+yvars = [f'pcgdp{year}' for year in years]
+plt.figure(figsize=figsize)
+for yvar in yvars:
+    sns.kdeplot(df[yvar], label=yvar)
+
+
+plt.legend(title='Per Capita Gross Domestic Product by State')
+plt.xlabel('GDPC')
+plt.ylabel('Density')
+plt.show()
+```
+
+::: {.cell-output .cell-output-display}
+![](spatial_inequality_files/figure-html/cell-10-output-1.png){width=697 height=503}
+:::
+:::
+
+
+-->
+<p>Returning to a more granular view of the attribute distribution, <a href="#fig-kde2000" class="quarto-xref">Figure&nbsp;6</a> combines a histogram of the distribution together with a kernel density estimate, and a rug plot. The latter signifies the positions of each state as short ticks on the x-axis. The outlier nature of the Distrito Federal that we saw in the <code>pengram</code> is responsible for the positive (right) skew of the density function. There is some evidence of polarization in the distribution with the mode being at the poorest group of states and other, lower, peaks in the middle of the distribution.</p>
+<div id="cell-fig-kde2000" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1940</span>, <span class="dv">2010</span>, <span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>yvars <span class="op">=</span> [<span class="ss">f'pcgdp</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> year <span class="kw">in</span> years]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(df[yvars[<span class="op">-</span><span class="dv">1</span>]], kde<span class="op">=</span><span class="va">True</span>, element<span class="op">=</span><span class="st">"step"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>             bins<span class="op">=</span><span class="dv">10</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sns.rugplot(df[yvars[<span class="op">-</span><span class="dv">1</span>]], color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-kde2000" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kde2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-kde2000-output-1.png" width="576" height="429" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kde2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distribution Per Capita Gross Domestic Product by State 2000, histogram, kernel density, rug plot
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Inequality in a distribution is often considered by an inspection of the shares of overall income belonging to units at different locations within the distribution. Here, we must keep in mind, the distinction between the different units under study in the analysis of spatial versus personal income inequality. In spatial inequality analysis, we essentially treat each state as an “individual” and set that individual’s level of income to the state’s per capita income. The share for the state is then derived as the ratio of its per capita income to the sum of the per capita income of all states.</p>
+<p>These shares can be portrayed in a Lorenz curve, shown in <a href="#fig-schutz2000" class="quarto-xref">Figure&nbsp;7</a>, which orders the states by their per capita incomes from lowest to highest. Then, against the cumulative proportion of states (x-axis) we plot the cumulative income share on the y-axis. Both scales have limits of <span class="math inline">\([0, 1]\)</span>. In the case of perfect equality, where all state per capita incomes are equal, this plot would be a 45-degree line, the so called line of perfect equality. Any departure from perfect equality will result in states with above average per capita income receiving more than <span class="math inline">\(1/n\)</span> share of <span class="math inline">\(n \bar{y}\)</span>, while states with below average per capita incomes will have shares below <span class="math inline">\(1/n\)</span>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div id="cell-fig-schutz2000" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.schutz <span class="im">import</span> Schutz</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> Schutz(gdf, <span class="st">'PCGDP2000'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>s.plot(xlabel<span class="op">=</span><span class="st">'Share of States'</span>, ylabel<span class="op">=</span><span class="st">'Share of Per Capita Income'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-schutz2000" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-schutz2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-schutz2000-output-1.png" width="812" height="523" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schutz2000-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Lorenz Curve and Schutz Line Per Capita Gross Domestic Product by State 2000
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="measures-of-inequality" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="measures-of-inequality"><span class="header-section-number">5.2</span> Measures of Inequality</h2>
+<p>We can derive two indices from the Lorenz curve: the Gini coefficient and the Schutz coefficient. The Gini coefficient is an area measurement expressed as a ratio of the area of the lens above the Lorenz curve but below the diagonal to area under the line of perfect equality. The Schutz coefficient is a distance measure defined as the maximum vertical distance between the equality diagonal and the Lorenz curve. Both coefficients measure the extent to which the Lorenz curve departs from perfect equality. Moreover, both indices run from 0, perfect equality, to 1, maximal inequality.</p>
+<p>For 2000, the Gini coefficient is 0.258, while the Schutz coefficient is 0.195. As they are both scaled to be within the unit interval, the temptation is to compare the two values. However, this would be misleading as we recall one is a measure of area, the second a measure of distance. Instead, each coefficient is often used to compare across distributions, either over time or space. We can do this for Mexico by asking what has happened to inequality over time. Along the way, we add a third commonly used indicator of inequality, the coefficient of variation (<span class="math inline">\(CV\)</span>). The coefficient of variation is a relative measure of variation as it is defined as the ratio of the standard deviation to the sample mean.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>yvars <span class="op">=</span> [<span class="ss">f'PCGDP</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> year <span class="kw">in</span> years]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ginis <span class="op">=</span> [ineq.gini.Gini(gdf[yvar]).g <span class="cf">for</span> yvar <span class="kw">in</span> yvars]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>res_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ginis, columns<span class="op">=</span>[<span class="st">'Gini'</span>], index<span class="op">=</span>years)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> gdf[yvars].std() <span class="op">/</span> gdf[yvars].mean() </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>res_df[<span class="st">'CV'</span>] <span class="op">=</span> cv.values</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> [ineq.schutz.Schutz(gdf, yvar).distance <span class="cf">for</span> yvar <span class="kw">in</span> yvars]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>res_df[<span class="st">'Schutz'</span>] <span class="op">=</span> s</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>res_df[<span class="st">'Gini_rank'</span>] <span class="op">=</span> res_df[<span class="st">'Gini'</span>].rank()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>res_df[<span class="st">'CV_rank'</span>] <span class="op">=</span> res_df[<span class="st">'CV'</span>].rank()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>res_df[<span class="st">'Schutz_rank'</span>] <span class="op">=</span> res_df[<span class="st">'Schutz'</span>].rank()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>res_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-rankings" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="12">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Inequality Index Rankings
+</figcaption>
+<div aria-describedby="tbl-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Gini</th>
+<th data-quarto-table-cell-role="th">CV</th>
+<th data-quarto-table-cell-role="th">Schutz</th>
+<th data-quarto-table-cell-role="th">Gini_rank</th>
+<th data-quarto-table-cell-role="th">CV_rank</th>
+<th data-quarto-table-cell-role="th">Schutz_rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1940</td>
+<td>0.353724</td>
+<td>0.719858</td>
+<td>0.260037</td>
+<td>7.0</td>
+<td>7.0</td>
+<td>7.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1950</td>
+<td>0.296446</td>
+<td>0.624611</td>
+<td>0.213920</td>
+<td>6.0</td>
+<td>6.0</td>
+<td>6.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1960</td>
+<td>0.253718</td>
+<td>0.492447</td>
+<td>0.181549</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1970</td>
+<td>0.255134</td>
+<td>0.472039</td>
+<td>0.185266</td>
+<td>4.0</td>
+<td>2.0</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1980</td>
+<td>0.245053</td>
+<td>0.462657</td>
+<td>0.179702</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1990</td>
+<td>0.251818</td>
+<td>0.497729</td>
+<td>0.181363</td>
+<td>2.0</td>
+<td>5.0</td>
+<td>2.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2000</td>
+<td>0.258113</td>
+<td>0.492565</td>
+<td>0.195043</td>
+<td>5.0</td>
+<td>4.0</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-rankings" class="quarto-xref">Table&nbsp;1</a> shows that the three indices agree that inequality was lowest in 1980, and the highest in 1940. However, while the Gini and Schutz coefficients agree in their rankings, the inclusion of the CV creates discordance. Part of the discordance reflects the sensitivity of the measures to different parts of the income distribution. The Gini coefficient puts more weight on the middle of the distribution, while the CV is more affected by the right tail of the distribution. The discordance also reflects the property that when the Lorenz curves do not intersect, the CV and Gini would agree on the rankings of inequality. However, <a href="#fig-lcs" class="quarto-xref">Figure&nbsp;8</a> shows that there are cases where the Lorenz curves intersect.</p>
+<p>The discordance in rankings complicates whether income inequality between states in Mexico has increased or decreased. The answer now depends upon which temporal interval one chooses. Both the Gini and CV agree that inequality has declined since 1940, irrespective of the terminal year selected. However, they disagree on the answer when the question is whether inequality decreased from, say, 1960 to 1970 or between 1990 and 2000 (see <a href="#tbl-rankings" class="quarto-xref">Table&nbsp;1</a>).</p>
+<div id="cell-fig-lcs" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> cumfreq</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lorenz_curve(incomes):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    sorted_incomes <span class="op">=</span> np.sort(incomes)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    cumulative_incomes <span class="op">=</span> np.cumsum(sorted_incomes)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    normalized <span class="op">=</span> cumulative_incomes <span class="op">/</span> cumulative_incomes[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    lorenz_curve <span class="op">=</span> np.insert(normalized, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(incomes)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(<span class="fl">0.0</span>, <span class="fl">1.0</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, lorenz_curve</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> yvar <span class="kw">in</span> yvars:</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    incomes <span class="op">=</span> gdf[yvar].values</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> lorenz_curve(incomes)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, y, label<span class="op">=</span>yvar)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the line of equality</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding titles and labels</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Lorenz Curves for PCGDP by Year'</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Cumulative Share of States'</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Cumulative Share of PCGDP'</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-lcs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lcs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-lcs-output-1.png" width="812" height="671" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lcs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Lorenz Curves by Decade
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The CV and Gini are but two of a collection of scalar measures of inequality we could apply. Other commonly employed inequality measures include the variance, the relative mean deviation, logarithmic variance, variance of the logarithms, Atkinson, and Theil.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Choosing among the rich diversity of inequality measures has been the subject of a vast literature. To help guide that selection, there are five desirable properties of an inequality measure:</p>
+<ol type="1">
+<li>Symmetry or anonymity</li>
+<li>Principle of transfers</li>
+<li>Scale invariance</li>
+<li>Replication invariance</li>
+<li>Zero normalization</li>
+</ol>
+<p>Symmetry implies that the names of the income receiving unit should be immaterial. That is, if we swap the income of one geographical unit with that of another, the overall inequality measure should not change. The principle of transfers implies that the measure should reflect a reduction in inequality if income is transferred from a richer unit to a poorer unit, as long as the transfer does not reverse their income ranking. Scale invariance means that if all incomes are multiplied by the same constant, inequality remains unchanged. Replication invariance implies that an inequality measure should be unaffected if the population is replicated, meaning that duplicating the entire income distribution does not alter the measure of inequality. Zero normalization means that an inequality measure assigns a value of zero to a perfectly equal income distribution, serving as a baseline where all units have the same income.</p>
+<p>Not all of the inequality measures satisfy all of these five properties. For example, the variance is not scale invariant, and both the logarithmic variance and variance of logarithms fail the principle of transfers property. Even for measures that respect these five properties, their use in comparing the levels of inequality between countries at one point in time, or the same country at different points of time, requires the researcher to specify a social welfare function <span class="citation" data-cites="atkinson1970MeasurementInequality">(<a href="#ref-atkinson1970MeasurementInequality" role="doc-biblioref">Atkinson, 1970</a>)</span>.</p>
+<p>However, in the study of spatial inequality, it is important to note that all the measures mentioned above share a sixth property: <em>spatial invariance</em>. This means they are insensitive to the <em>geographical</em> distribution of the income values. The spatial invariance is demonstrated in <a href="#fig-invariance" class="quarto-xref">Figure&nbsp;9</a>, where we compare two spatial distributions, one that is the actual distribution for 2000 and one where we artificially permute the incomes randomly. Despite markedly different spatial patterns, the income distributions summarized in the histograms in the bottom row are identical. Since all of the inequality measures mentioned only consider information about the statistical distribution, each measure will take on the same value whether applied to the spatial distribution on the left or right of the figure.</p>
+<p>From a geographical perspective, spatial invariance is not a desirable property in an inequality measure. Let’s now turn our attention to spatially explicit measures of inequality.</p>
+<div id="cell-fig-invariance" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>gdf.plot(column<span class="op">=</span><span class="st">'PCGDP2000'</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">0</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">'PCGDP2000'</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'PCGDP2000r'</span>] <span class="op">=</span> np.random.permutation(gdf.PCGDP2000)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>gdf.plot(column<span class="op">=</span><span class="st">'PCGDP2000r'</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">1</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">'PCGDP2000 Random'</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].hist(gdf[<span class="st">'PCGDP2000'</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>               edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">'PCGDP2000 Histogram'</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_xlabel(<span class="st">'PCGDP2000'</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].hist(gdf[<span class="st">'PCGDP2000r'</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>               edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].set_title(<span class="st">'PCGDP2000 Random Histogram'</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].set_xlabel(<span class="st">'PCGDP2000r'</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].set_ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-invariance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-invariance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-invariance-output-1.png" width="661" height="469" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-invariance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Spatial Invariance of Distributions
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="putting-space-into-the-measurement-of-inequality" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="putting-space-into-the-measurement-of-inequality"><span class="header-section-number">5.3</span> Putting Space into the Measurement of Inequality</h2>
+<p>The inability of the inequality measures to capture any of the geographical dimensions of inequality stems from the treatment of the geographical units of measurement as individuals, and the desire to respect the principle of symmetry or anonymity that is desired in a classic inequality measure. This enables researchers to draw upon the wealth of knowledge about the properties of classic inequality measures, but at the cost of ignoring geography. In other words, these measures say a lot about inequality in the statistical distribution of incomes but they are silent on the spatial distribution of incomes.</p>
+<p>In this section, we discuss the approaches used to integrate the spatial and statistical distributions in the study of spatial inequality. Given that these methods take the geographical distribution into account, they can be said to be <em>spatially explicit measures of inequality</em>.</p>
+<p>These approaches all can be seen as special cases of inequality decomposition.</p>
+<section id="regional-inequality-decomposition" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="regional-inequality-decomposition"><span class="header-section-number">5.3.1</span> Regional Inequality Decomposition</h3>
+<p>A common approach to introducing geography in the measurement of inequality leverages the fact that certain inequality measures can be <em>decomposed</em> if the individual income receiving units are placed into a set of mutually exclusive and exhaustive groups. The decomposition then identifies the overall inequality that is due to inequality within groups and between the groups.</p>
+<p>To see how this works, we return to the Theil inequality measure that we mentioned briefly above. Let <span class="math inline">\(y_i\)</span> be the income of unit <span class="math inline">\(i\)</span>, and <span class="math inline">\(s_i\)</span> represent the income share of unit <span class="math inline">\(i\)</span> such that <span class="math inline">\(s_i = \frac{y_i}{\sum_i y_i}\)</span> and <span class="math inline">\(\sum_i s_i=1\)</span>. Then, consider the distribution of the shares. When all units have the same income <span class="math inline">\(s_i = s_j =
+1/n\)</span>. Then the entropy of the shares given as</p>
+<p><span class="math display">\[ H(y) = \sum_{i=1}^n s_i \ln \frac{1}{s_i}\]</span> will be maximized at <span class="math inline">\(\ln n\)</span>. In the case of extreme inequality, all but one unit have <span class="math inline">\(s_i=0\)</span> and a single unit has all income <span class="math inline">\(s_j=1\)</span>, and <span class="math inline">\(H(y)=0\)</span>. Thus, the entropy function can be viewed as an indicator of <em>income equality</em>.</p>
+<p>To generate an indicator of <em>income inequality</em>, we can contrast an observed distribution’s equality against the maximum:</p>
+<p><span class="math display">\[T(y) = \ln n - H(y) = \ln n - \sum_{i=1}^n s_i \ln \frac{1}{s_i}=\sum_{i=1}^n s_i \ln n s_i.\]</span></p>
+<p>This can be viewed as a weighted average of the logarithmic deviations of the shares, with the weights defined as the shares. The logarithmic deviation of share <span class="math inline">\(i\)</span> from perfect equality is <span class="math inline">\(\ln \frac{s_i}{1/n} = \ln s_i n\)</span>.</p>
+<p>Alternatively, the Theil index can be defined using relative incomes:</p>
+<p><span class="math display">\[T = \frac{1}{n} \sum_i \frac{y_i}{\mu} \ln \frac{y_i}{\mu}\]</span> where <span class="math inline">\(y_i\)</span> is the income of unit <span class="math inline">\(i\)</span> and <span class="math inline">\(\mu = \frac{1}{n} \sum_i y_i\)</span>.</p>
+<p>Decomposition of the overall <span class="math inline">\(T\)</span> measure requires assigning each unit to exactly one of <span class="math inline">\(G\)</span> sets <span class="math inline">\(S_1, S_2, \ldots, S_G\)</span>, with the size of each set given as <span class="math inline">\(n_g\)</span> so that: <span class="math display">\[
+\sum_{g=1}^G n_g = n.
+\]</span></p>
+<p>Given this, we have:</p>
+<p><span class="math display">\[Y_g = \sum_{i \in S_g} y_i \ g=1,\ldots,G\]</span></p>
+<p>Defining <span class="math inline">\(\omega_g = \frac{n_g}{n} \frac{\bar{Y}_g}{\mu}\)</span>, the Theil index can be rewritten as:</p>
+<p><span id="eq-decomp"><span class="math display">\[
+T = \sum_{g=1}^G \omega_g T_g + \sum_{g=1}^G \omega_g \ln
+\frac{\bar{Y}_g}{\mu}.
+\tag{1}\]</span></span></p>
+<p>The first term is the within group inequality defined as a weighted average of the inequality within each group with the weights equal to the group’s share of overall income, with:</p>
+<p><span class="math display">\[T_g = \frac{1}{n_g} \sum_{i \in S_g} \frac{y_i}{\bar{Y}_g} \ln \frac{y_i}{\bar{Y}_g}.\]</span></p>
+<p>The second term in <a href="#eq-decomp" class="quarto-xref">Equation&nbsp;1</a> is the between group inequality component, measuring the inequality that would exist if within each group there was no inequality (i.e., all members of the same set have the same income).</p>
+<p>Decomposition of inequality had been widely applied in economics to study inequality between occupational groups, sexes, and races, where individuals would be placed into the mutually exclusive groups and overall individual inequality decomposed into that due to the differences between and within the groups. It was a short jump to adopt this to spatial inequality by using regions to define the groups, with individual units (in our case, states) being assigned to one and only one region.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>We will illustrate this for the case of Mexican states using a regional partition due to <span class="citation" data-cites="hanson1996MexicoIntegration">Hanson (<a href="#ref-hanson1996MexicoIntegration" role="doc-biblioref">1996</a>)</span> as shown in <a href="#fig-components" class="quarto-xref">Figure&nbsp;10</a>. This regionalization scheme consists of 5 regions, with the size of the regions ranging from 2 states to 10 states.</p>
+<div id="cell-fig-components" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div id="fig-components" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-components-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-components-output-1.png" width="662" height="453" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Regional Inequality Decomposition
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can apply the <code>theil</code> module from <code>pysal-inequality</code> to calculate the value of the overall level of inequality as measured by the global Theil index, and its decomposition into the between region inequality and within region inequality components:</p>
+<div id="cell-fig-polarization" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.theil <span class="im">import</span> TheilDSim</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">12345</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>gdf.plot(<span class="st">'PCGDP2000'</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">0</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">'PCGDP2000'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the per capita GDP and regimes</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> gdf[<span class="st">'PCGDP2000'</span>]</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>regimes <span class="op">=</span> gdf[<span class="st">'HANSON98'</span>]</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> TheilDSim(income, regimes, <span class="dv">999</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'PCGDP2000r'</span>] <span class="op">=</span> np.random.permutation(gdf.PCGDP2000)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>gdf.plot(column<span class="op">=</span><span class="st">'PCGDP2000r'</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">1</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">'PCGDP2000 Random'</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'PCGDP2000r'</span>] <span class="op">=</span> np.random.permutation(gdf.PCGDP2000)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>gdf.plot(column<span class="op">=</span><span class="st">'PCGDP2000r'</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>, <span class="dv">0</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">'PCGDP2000 Random'</span>)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>msg<span class="op">=</span><span class="ss">f'Spatial polarization: </span><span class="sc">{</span>res<span class="sc">.</span>bg[<span class="dv">0</span>][<span class="dv">0</span>]<span class="op">/</span>res<span class="sc">.</span>T<span class="sc">:.3f}</span><span class="ss">'</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>msg<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>msg<span class="sc">}</span><span class="ss">, pseudo p-value: </span><span class="sc">{</span>res<span class="sc">.</span>bg_pvalue[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(msg)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>realizations <span class="op">=</span> np.array([t.bg<span class="op">/</span>t.T <span class="cf">for</span> t <span class="kw">in</span> res.results])</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Ho mean: </span><span class="sc">{</span>realizations<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>kde <span class="op">=</span> sns.kdeplot(realizations, fill<span class="op">=</span><span class="va">False</span>, color<span class="op">=</span><span class="st">'blue'</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> kde.get_lines()[<span class="dv">0</span>].get_data()</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>plt.legend([], [], frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the area to the right of the specified value</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x, y, where<span class="op">=</span>(x <span class="op">&gt;=</span> realizations[<span class="dv">0</span>]),</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>                 interpolate<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line at the specified value</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>realizations[<span class="dv">0</span>], color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Spatial Polarization"</span>)</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Theil: </span><span class="sc">{</span>res<span class="sc">.</span>T<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'KB p-value: </span><span class="sc">{</span>(realizations <span class="op">&gt;=</span> realizations[<span class="dv">0</span>])<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span><span class="dv">1000</span><span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Spatial polarization: 0.341, pseudo p-value: 0.036
+Ho mean: 0.139
+Theil: 0.10660832349588023
+KB p-value: 0.036</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-polarization" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-polarization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-polarization-output-2.png" width="540" height="436" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polarization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Spatial Polarization
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The overall level of regional inequality is 0.106. The between region component stands at 0.036, while the within region element is 0.070. In relative terms, inequality between the regions in Mexico accounts for 34 percent of state income inequality, while inequality between states from the same region is the larger share presenting 72 percent of spatial inequality.</p>
+<p>The ratio of between to within region inequality has been suggested as a measure of <em>spatial polarization</em> <span class="citation" data-cites="zhang2001WhatDifference">(<a href="#ref-zhang2001WhatDifference" role="doc-biblioref">Zhang and Kanbur, 2001</a>)</span>. Since the two components sum to overall inequality, we can re-express the measure of spatial polarization as the ratio of between region to overall inequality. Thus, the level of spatial polarization of state incomes stood at 34 percent in 2000 in Mexico.</p>
+<p>A relevant question here is whether this level of spatial polarization in 2000 should be considered high or not? Another way to express this, is to ask if the polarization is higher than we would expect if state incomes were randomly distributed in space in Mexico in 2000.</p>
+<p>We can answer this question by developing counter-factual spatial distributions that reflect a null hypothesis of spatially random income distributions. Given the <span class="math inline">\(n\)</span> observations, in our case states, there are <span class="math inline">\(n!\)</span> permutations of incomes that are equally likely. In <a href="#fig-polarization" class="quarto-xref">Figure&nbsp;11</a>, the maps in the top-right and lower-left are two such realizations, where the observed incomes from 2000 (top-left) have been randomly reassigned to states.</p>
+<p>Since it is not feasible to generate all <span class="math inline">\(32!\)</span> maps in our case,<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> we take a sample of 999 such maps from the distribution of permutations. For each of these maps we calculate the spatial polarization measure, and collect all measures to develop a reference distribution for our index under the null of spatially random income distributions. We evaluate our observed spatial polarization index against this distribution and derive a pseudo p-value as the number of counterfactual distributions that generate polarization levels as large as the observed value over the number of permutations plus one.</p>
+<p>The reference distribution for the polarization index is reported in the bottom right of <a href="#fig-polarization" class="quarto-xref">Figure&nbsp;11</a>. The area to the right of our observed polarization index of 0.34 is 0.036 of the distribution. By convention, this p-value points to a significant departure from the null, and we would conclude that the level of spatial polarization of incomes in Mexico is significantly different from that expected were incomes generated by a spatially random process.</p>
+<p>The regional decomposition is a spatially explicit measure of spatial inequality as it is indeed sensitive to the geographical distribution of the income values. It is important to note, however, that it is the spatial polarization index, and not the overall <span class="math inline">\(T\)</span> that is spatially explicit. Each of the counterfactual spatial distributions used to construct the reference distribution for the spatial polarization index would still have the same attribute distribution, with similar means and variances, and levels of overall inequality.</p>
+<p>While the regional inequality decomposition is spatially explicit, it treats geography in an aggregated fashion. There are, in essence, two scales of spatial inequality implied in this decomposition. As displayed in <a href="#fig-components" class="quarto-xref">Figure&nbsp;10</a>, the within-regions component might be considered the “local” measure as it compares incomes belonging to the same region to the mean income of the group. The between-regions inequality component, by contrast, views spatial inequality in a more aggregate fashion considering only the differences in regional means.</p>
+<p>A close inspection of the decomposition <a href="#eq-decomp" class="quarto-xref">Equation&nbsp;1</a> reveals both the within and between inequality components are functions of a <span class="math inline">\(T\)</span> index. In the former case this is applied to states from the same region, and in the latter case, the <span class="math inline">\(T\)</span> is applied to the means of regional incomes. For the within region component, the actual spatial distribution of the member states within each of their regions is ignored. By the same token, the geographical location of the regions is immaterial to the calculation of the between region component. In other words, once the states have been assigned to regions, geography no longer matters. Thus, we draw a distinction between <em>regional</em> inequality decomposition and <em>spatial</em> inequality decomposition.</p>
+</section>
+<section id="spatial-inequality-decomposition" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="spatial-inequality-decomposition"><span class="header-section-number">5.3.2</span> Spatial Inequality Decomposition</h3>
+<!-- - spatial gini  -->
+<p>To capture these ignored dimensions of the spatial distribution, <span class="citation" data-cites="rey2013SpatialDecomposition">Rey and Smith (<a href="#ref-rey2013SpatialDecomposition" role="doc-biblioref">2013</a>)</span> suggested a spatial decomposition of the Gini coefficient. Starting from the Gini coefficient expressed as half the relative mean absolute deviation:<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> <span id="eq-gini-mad"><span class="math display">\[
+Gini = \sum_{i=1}^n \sum_{j=1}^n \frac{|y_i - y_j|}{2n^2 \bar{y}}
+\tag{2}\]</span></span> the sum of the absolute deviations can be decomposed as: <span id="eq-gini-sad"><span class="math display">\[
+\sum_{i=1}^n \sum_{j=1}^n |y_i - y_j| = \sum_{i=1}^n \sum_{j=1}^n w_{i,j} |y_i -
+y_j| + (1-w_{i,j})\sum_{i=1}^n \sum_{j=1}^n |y_i - y_j|
+\tag{3}\]</span></span> where <span class="math inline">\(w_{i,j} = 1\)</span> if states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are geographical neighbors, <span class="math inline">\(w_{i,j}=0\)</span> otherwise. Here we define neighbors as states that share a border.</p>
+<p>Substituting <a href="#eq-gini-sad" class="quarto-xref">Equation&nbsp;3</a> into <a href="#eq-gini-mad" class="quarto-xref">Equation&nbsp;2</a> gives: <span id="eq-gini-spatial"><span class="math display">\[
+Gini = \sum_{i=1}^n \sum_{j=1}^n \frac{w_{i,j} |y_i - y_j|}{2n^2 \bar{y}} +
+\sum_{i=1}^n \sum_{j=1}^n \frac{ (1-w_{i,j}) |y_i - y_j|}{2n^2 \bar{y}}
+\tag{4}\]</span></span> The first term represents a measure of inequality between neighboring states, while the second term captures inequality between “distant” pairs of states. For most spatial configurations, the number of neighboring pairs will be dwarfed by the number of pairs of states that are distant. So while, in the case of spatially clustered income values, the expectation would be for the average difference in incomes to be smaller for neighboring rather than distant states, our measure of spatial clustering here has to take into account the different cardinality of the two sets of pairs. As such, the relevant comparison is if the first term (second term) is smaller (larger) than what could be expected if state incomes were randomly distributed in space.</p>
+<p>We apply the Spatial Gini Decomposition to Mexican State incomes in 2000 using <code>pysal-inequality</code> in <a href="#fig-gini-spatial" class="quarto-xref">Figure&nbsp;12</a>. The adjacency graph based on the criterion of Queen neighbors is shown in the top-right figure. An edge defines a pair of neighboring states.</p>
+<div id="cell-fig-gini-spatial" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inequality.gini <span class="im">import</span> Gini_Spatial</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> libpysal</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">12345</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>gdf.plot(<span class="st">'PCGDP2000'</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">0</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">'PCGDP2000'</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>wq <span class="op">=</span> libpysal.weights.Queen.from_dataframe(gdf)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>wq.transform <span class="op">=</span> <span class="st">'B'</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>gs2000 <span class="op">=</span> Gini_Spatial(gdf[<span class="st">"PCGDP2000"</span>], wq)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> gdf[<span class="st">'PCGDP1940'</span>]</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">'Neighbor Graph'</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>wq.plot(gdf, ax<span class="op">=</span>axs[<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">'Counterfactual'</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'PCGDP2000r'</span>] <span class="op">=</span> np.random.permutation(gdf.PCGDP2000)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>gdf.plot(column<span class="op">=</span><span class="st">'PCGDP2000r'</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">0</span>], scheme<span class="op">=</span><span class="st">'quantiles'</span>,</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>         cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>adsum <span class="op">=</span> gs2000.dtotal</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>realizations <span class="op">=</span> gs2000.wcgp <span class="op">/</span> adsum</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>kde <span class="op">=</span> sns.kdeplot(realizations, fill<span class="op">=</span><span class="va">False</span>, color<span class="op">=</span><span class="st">'blue'</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> kde.get_lines()[<span class="dv">0</span>].get_data()</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>plt.legend([], [], frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the area to the right of the specified value</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x, y, where<span class="op">=</span>(x <span class="op">&gt;=</span> gs2000.wcg<span class="op">/</span>adsum),</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>                 interpolate<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line at the specified value</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>gs2000.wcg<span class="op">/</span>adsum, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Spatial Gini"</span>)</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> gs2000</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>msg <span class="op">=</span> <span class="ss">f'Expected Distant SADS/Total SADS: </span><span class="sc">{</span>G<span class="sc">.</span>e_wcg<span class="op">/</span>adsum<span class="sc">:.2f}</span><span class="ss">'</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>msg <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>msg<span class="sc">}</span><span class="ss">, Observed: </span><span class="sc">{</span>G<span class="sc">.</span>wcg<span class="op">/</span>adsum<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss"> p-value: </span><span class="sc">{</span>G<span class="sc">.</span>p_sim<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(msg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-gini-spatial" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gini-spatial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-gini-spatial-output-1.png" width="662" height="470" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gini-spatial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Spatial Inequality Decomposition
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Expected Distant SADS/Total SADS: 0.86, Observed: 0.90
+ p-value: 0.01</code></pre>
+</div>
+</div>
+<p>For inference on the spatial Gini, the same computationally based approach that we used in the Theil decomposition is employed. One of the counterfactuals representing a random permutation of the incomes is shown in the lower-left figure. The reference distribution for the spatial Gini index is shown on the bottom right. Here the spatial Gini is expressed as the share of the overall absolute pair-wise differences due to inequality between distant (non-neighbor) pairs of states. The pseudo p-value (0.01) for the observed index is calculated as the area to its right under the distribution.</p>
+<p>Under the null, the distant pairs should account for 86 percent of the absolute differences, however, the observed share is much higher at 90 percent. In fact, the p-value indicates that none of the counterfactual spatial distributions of income generated a spatial Gini as large as the one observed. In other words, the inequality between distant pairs of states is larger than the inequality between neighboring states. This pairwise orientation of the spatial Gini decomposition offers a useful complement over the regional decomposition of the Theil approach, as it introduces a more spatially explicit view of the income distribution that demonstrates how spatial autocorrelation affects overall inequality across the states.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>It should be noted that the spatial Gini decomposition does not allow for the exact additivity of within-group and between-group inequality components. This is because the Gini index is affected by the degree of overlap in incomes of states belonging to different regions. Any overlap complicates the decomposition because part of the total inequality arises from the overlap itself, which cannot be easily attributed to either within-group or between-group inequality. So instead of a two-way additive decomposition, a residual term is required due to the overlap. Because this residual term is difficult to interpret, the Gini is seldom used for regional inequality decomposition.</p>
+</section>
+<section id="weighted-or-unweighted-inequality-places-versus-people" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="weighted-or-unweighted-inequality-places-versus-people"><span class="header-section-number">5.3.3</span> Weighted or Unweighted Inequality: Places versus People</h3>
+<p>A final issue we explore is the question of whether the measure of spatial inequality should take into account the population sizes of the enumeration units. This was briefly mentioned earlier in the context of measuring international inequality. In the regional literature, a debate rages as to whether population weighted or unweighted approaches should be used to measure spatial inequality <span class="citation" data-cites="gluschenko2018MeasuringRegional">(<a href="#ref-gluschenko2018MeasuringRegional" role="doc-biblioref">Gluschenko, 2018</a>)</span> .</p>
+<p>To frame the debate, it is helpful to consider three different concepts of inequality at the international scale suggested by <span class="citation" data-cites="milanovic2007WorldsApart">Milanović (<a href="#ref-milanovic2007WorldsApart" role="doc-biblioref">2007</a>)</span>. Here we adapt them to the question of measuring spatial inequality at the sub-national scale. Concept 1 is unweighted spatial inequality, where each state is one unit of measurement, and we use its per capita income irrespective of the state’s population. In addition to being the dominant approach in regional inequality analysis, this concept is at the core of the literature on regional convergence <span class="citation" data-cites="rey1999us">(<a href="#ref-rey1999us" role="doc-biblioref">Rey and Montouri, 1999</a>)</span> where the focus is on whether the incomes of poor and rich states in a system are coming together or growing apart over time.</p>
+<p>Concept 2 takes into account the population of the individual states, recognizing that a state like Nuevo Leon with a population of 8.6 million in 2000 having its average income increase by 10,000 USD is likely to have a larger impact than is seeing the per capita income of Colima, with a population of 500,000 change by the same amount. So here, the per capita incomes of the states are now weighted by the population of the states. This is weighted spatial inequality.</p>
+<p>Finally, Concept 3, measures inequality between all the individuals in the country. Here we would require information on the individuals both in terms of their incomes and their state of residence. Were it available, such data would allow us to measure personal income inequality. However, in the literature on regional inequality, such data is scarce, and so this concept is not operationalized.</p>
+<p>This means the debate in the regional literature is between proponents of Concept 1 and Concept 2.</p>
+<p>Thus far in this paper, we have adopted the Concept 1 definition of spatial inequality, that is, unweighted spatial inequality. We can contrast this with the perspective offered by Concept 2, by developing the Weighted Pengram under concept 2 shown in <a href="#fig-weighted-pengram" class="quarto-xref">Figure&nbsp;13</a> and comparing it with the Unweighted Pengram from <a href="#fig-pen2000" class="quarto-xref">Figure&nbsp;3</a>. The number of bars for each state in the Weighted Pengram is proportional to the population of that state. The logic behind the weighted spatial inequality is that rather than having one representative observation (individual) from the state with their level of income equal to the state per capita income, now there are a proportional number of individuals from each state having their level of income equal to the state’s per capita income.</p>
+<div id="cell-fig-weighted-pengram" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div id="fig-weighted-pengram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-weighted-pengram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="spatial_inequality_files/figure-html/fig-weighted-pengram-output-1.png" width="610" height="558" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-weighted-pengram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Populated Weighted Pengram
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A fundamental issue with this approach is that it assumes that inequality among individuals within the state is zero, since all members have the same level of income. This also implies that for two states that have different levels of per capita income, the poorest members of the richer state will be richer than the richest member of the poorer state. This is at odds with empirical reality.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<p>Regional inequality continues to attract the attention of researchers and policy makers alike. This chapter has presented the key methodological approaches available to researchers interested in analyzing spatial disparities. By highlighting the challenges posed in adapting classical inequality measures to the question of spatial inequality, the chapter draws important distinctions between different types of inequality decomposition approaches based on their treatment of space. These methods reveal the spatial dimensions of inequality, particularly the extent to which income disparities are geographically clustered.</p>
+<p>While the focus has been on regional inequality at the sub-national scale, these methods have a broad scope that researchers can apply at different spatial scales, from analyzing geographical disparities at the international level <span class="citation" data-cites="redding2004EconomicGeography">(<a href="#ref-redding2004EconomicGeography" role="doc-biblioref">Redding and Venables, 2004</a>)</span>, inter-regional <span class="citation" data-cites="bathelt2024NatureCauses">(<a href="#ref-bathelt2024NatureCauses" role="doc-biblioref">Bathelt et al., 2024</a>)</span>, as well as intra-urban scale <span class="citation" data-cites="oecd2018DividedCities">(<a href="#ref-oecd2018DividedCities" role="doc-biblioref">OECD, 2018</a>)</span>. This scope is vital, as the mechanisms of inequality can differ at each scale. For example, trade policy likely plays a more significant role on an international scale. At the same time, industrial restructuring is more influential on an inter-regional scale, and residential sorting is operative on an intra-urban scale. Furthermore, the resulting patterns of spatial inequality may also vary across these scales. The work by <span class="citation" data-cites="ganong2017WhyHas">Ganong and Shoag (<a href="#ref-ganong2017WhyHas" role="doc-biblioref">2017</a>)</span> shows a substantial divergence of incomes across states but reports a more mixed pattern when measuring convergence using labor market areas.</p>
+<p>Linking the spatial inequality measures to possible policy interventions offers some possibilities. For example, the distinction between inter-regional (between-region) and intra-regional (within-region) inequality in the decomposition may help researchers and policymakers design such interventions in a tailored fashion. If between-region inequality dominates, there may be a strong case for place-based policies. Conversely, if the within-region inequality component accounts for the majority share, more nationally oriented policies, such as federal tax laws, may be more appropriate.</p>
+<p>In future research, it would be beneficial to investigate the relationship between spatial inequality and place mobility. Place mobility refers to the economic trajectory of a location within the national context, similar to the concept of inter-generational income mobility <span class="citation" data-cites="rey2023SpatialInequality">(<a href="#ref-rey2023SpatialInequality" role="doc-biblioref">Rey and Casimiro Vieyra, 2023</a>)</span>. Exploring the link between place mobility and spatial polarization is crucial, especially how the movement of states within the income distribution impacts broader regional inequalities. Moreover, gaining insight into the interaction between place mobility and “place-based policies” could help in designing more effective regional development strategies that reduce inequality while fostering economic mobility.</p>
+<!-- ## References -->
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-agnieszka2019RegionalInequalities" class="csl-entry" role="listitem">
+Agnieszka, W. (2019), <span>“Regional inequalities in the <span>EU</span>,”</span> <em>European Parliamentary Research Service</em>.
+</div>
+<div id="ref-atkinson1970MeasurementInequality" class="csl-entry" role="listitem">
+Atkinson, A.B. (1970), <span>“<a href="https://doi.org/10.1016/0022-0531(70)90039-6">On the measurement of inequality</a>,”</span> <em>Journal of Economic Theory</em>, 2(3), 244–263.
+</div>
+<div id="ref-barber2022400Million" class="csl-entry" role="listitem">
+Barber, M., and J.B. Holbein (2022), <span>“<a href="https://doi.org/10.1371/journal.pone.0268134">400 million voting records show profound racial and geographic disparities in voter turnout in the <span>United States</span></a>,”</span> <em>PLoS ONE</em>, 17(6), e0268134.
+</div>
+<div id="ref-bathelt2024NatureCauses" class="csl-entry" role="listitem">
+Bathelt, H., M. Buchholz, and M. Storper (2024), <span>“<a href="https://doi.org/10.1093/jeg/lbae005">The nature, causes, and consequences of inter-regional inequality</a>,”</span> <em>Journal of Economic Geography</em>, 24(3), 353–374.
+</div>
+<div id="ref-brandolini2011IncomeInequality" class="csl-entry" role="listitem">
+Brandolini, A., and T.M. Smeeding (2011), <em><a href="https://doi.org/10.1093/oxfordhb/9780199606061.013.0004">Income <span>Inequality</span> in <span>Richer</span> and <span>OECD Countries</span></a></em>, Oxford University Press.
+</div>
+<div id="ref-cowell2011MeasuringInequality" class="csl-entry" role="listitem">
+Cowell, F.A. (2011), <em>Measuring inequality</em>, 3rd ed, Oxford University Press, Oxford.
+</div>
+<div id="ref-debnath2024GeographicDisparities" class="csl-entry" role="listitem">
+Deb Nath, N., and A. Odoi (2024), <span>“<a href="https://doi.org/10.7717/peerj.17408">Geographic disparities and temporal changes of diabetes-related mortality risks in <span>Florida</span>: A retrospective study</a>,”</span> <em>PeerJ</em>, 12, e17408.
+</div>
+<div id="ref-frank2009InequalityGrowth" class="csl-entry" role="listitem">
+Frank, M.W. (2009), <span>“Inequality and growth in the <span>United States</span>: <span>Evidence</span> from a new state-level panel of income inequality measures,”</span> <em>Economic Inquiry</em>, 47(1), 55–68.
+</div>
+<div id="ref-ganong2017WhyHas" class="csl-entry" role="listitem">
+Ganong, P., and D. Shoag (2017), <span>“<a href="https://doi.org/10.1016/j.jue.2017.07.002">Why has regional income convergence in the <span>U</span>.<span>S</span>. declined?</a>”</span> <em>Journal of Urban Economics</em>, 102, 76–90.
+</div>
+<div id="ref-gaubert2021TrendsUS" class="csl-entry" role="listitem">
+Gaubert, C., P. Kline, D. Vergara, and D. Yagan (2021), <span>“<a href="https://doi.org/10.1257/pandp.20211075">Trends in <span>US Spatial Inequality</span>: <span>Concentrating Affluence</span> and a <span>Democratization</span> of <span>Poverty</span></a>,”</span> <em>AEA Papers and Proceedings</em>, 111, 520–525.
+</div>
+<div id="ref-gluschenko2018MeasuringRegional" class="csl-entry" role="listitem">
+Gluschenko, K. (2018), <span>“<a href="https://doi.org/10.1080/17421772.2017.1343491">Measuring regional inequality: To weight or not to weight?</a>”</span> <em>Spatial Economic Analysis</em>, 13(1), 36–59.
+</div>
+<div id="ref-graetz2020MappingDisparities" class="csl-entry" role="listitem">
+Graetz, N., L. Woyczynski, K.F. Wilson, J.B. Hall, K.H. Abate, F. Abd-Allah, O.M. Adebayo, V. Adekanmbi, M. Afshari, O. Ajumobi, T. Akinyemiju, F. Alahdab, Z. Al-Aly, J.E.A. Rabanal, M. Alijanzadeh, V. Alipour, K. Altirkawi, M. Amiresmaili, N.H. Anber, C.L. Andrei, M. Anjomshoa, C.A.T. Antonio, J. Arabloo, O. Aremu, K.K. Aryal, M. Asadi-Aliabadi, S. Atique, M. Ausloos, A. Awasthi, B.P.A. Quintanilla, S. Azari, A. Badawi, J.A.M. Banoub, S.L. Barker-Collo, A. Barnett, N. Bedi, D.A. Bennett, N.V. Bhattacharjee, K. Bhattacharyya, S. Bhattarai, Z.A. Bhutta, A. Bijani, B. Bikbov, G. Britton, R. Burstein, Z.A. Butt, R. Cárdenas, F. Carvalho, C.A. Castañeda-Orjuela, F. Castro, E. Cerin, J.-C. Chang, M.L. Collison, C. Cooper, M.A. Cork, F. Daoud, R. Das Gupta, N.D. Weaver, J.-W. De Neve, K. Deribe, B.B. Desalegn, A. Deshpande, M. Desta, M. Dhimal, D. Diaz, M.T. Dinberu, S. Djalalinia, M. Dubey, E. Dubljanin, A.R. Durães, L. Dwyer-Lindgren, L. Earl, M.E. Kalan, Z. El-Khatib, B. Eshrati, M. Faramarzi, M. Fareed, A. Faro, S.-M. Fereshtehnejad, E. Fernandes, I. Filip, F. Fischer, T. Fukumoto, J.A. García, P.S. Gill, T.K. Gill, P.N. Gona, S.V. Gopalani, A. Grada, Y. Guo, R. Gupta, V. Gupta, A. Haj-Mirzaian, A. Haj-Mirzaian, R.R. Hamadeh, S. Hamidi, M. Hasan, H.Y. Hassen, D. Hendrie, A. Henok, N.J. Henry, B.H. Prado, C. Herteliu, M.K. Hole, N. Hossain, M. Hosseinzadeh, G. Hu, O.S. Ilesanmi, S.S.N. Irvani, S.M.S. Islam, N. Izadi, M. Jakovljevic, R.P. Jha, J.S. Ji, J.B. Jonas, Z.J. Shushtari, J.J. Jozwiak, T. Kanchan, A. Kasaeian, A.K. Karyani, P.N. Keiyoro, C.N. Kesavachandran, Y.S. Khader, M.A. Khafaie, E.A. Khan, M.M. Khater, A.A. Kiadaliri, D.N. Kiirithio, Y.J. Kim, R.W. Kimokoti, D.K. Kinyoki, A. Kisa, S. Kosen, A. Koyanagi, K. Krishan, B.K. Defo, M. Kumar, P. Kumar, F.H. Lami, P.H. Lee, A.J. Levine, S. Li, Y. Liao, L.-L. Lim, S. Listl, J.C.F. Lopez, M. Majdan, R. Majdzadeh, A. Majeed, R. Malekzadeh, M.A. Mansournia, F.R. Martins-Melo, A. Masaka, B.B. Massenburg, B.K. Mayala, K.M. Mehta, W. Mendoza, G.A. Mensah, T.J. Meretoja, T. Mestrovic, T.R. Miller, G.K. Mini, E.M. Mirrakhimov, B. Moazen, D.K. Mohammad, A.M. Darwesh, S. Mohammed, F. Mohebi, A.H. Mokdad, L. Monasta, Y. Moodley, M. Moosazadeh, G. Moradi, M. Moradi-Lakeh, P. Moraga, L. Morawska, S.D. Morrison, J.F. Mosser, S.M. Mousavi, C.J.L. Murray, G. Mustafa, A. Nahvijou, F. Najafi, V. Nangia, D.E. Ndwandwe, I. Negoi, R.I. Negoi, J.W. Ngunjiri, C.T. Nguyen, L.H. Nguyen, D.N.A. Ningrum, J.J. Noubiap, M.N. Shiadeh, P.S. Nyasulu, F.A. Ogbo, A.T. Olagunju, B.O. Olusanya, J.O. Olusanya, O.E. Onwujekwe, D.D.V. Ortega-Altamirano, E. Ortiz-Panozo, S. Øverland, M. P. A., A. Pana, S. Panda-Jonas, S. Pati, G.C. Patton, N. Perico, D.M. Pigott, M. Pirsaheb, M.J. Postma, A. Pourshams, S. Prakash, P. Puri, M. Qorbani, A. Radfar, F. Rahim, V. Rahimi-Movaghar, M.H.U. Rahman, F. Rajati, C.L. Ranabhat, D.L. Rawaf, S. Rawaf, R.C. Reiner, G. Remuzzi, A.M.N. Renzaho, S. Rezaei, A. Rezapour, C. Rios-González, L. Roever, L. Ronfani, G. Roshandel, A. Rostami, E. Rubagotti, N. Sadat, E. Sadeghi, Y. Safari, R. Sagar, N. Salam, P. Salamati, Y. Salimi, H. Salimzadeh, A.M. Samy, J. Sanabria, M.M. Santric Milicevic, B. Sartorius, B. Sathian, A.R. Sawant, L.E. Schaeffer, M.F. Schipp, D.C. Schwebel, A.M. Senbeta, S.G. Sepanlou, M.A. Shaikh, M. Shams-Beyranvand, M. Shamsizadeh, K. Sharafi, R. Sharma, J. She, A. Sheikh, M. Shigematsu, S. Siabani, D.G.A. Silveira, J.A. Singh, D.N. Sinha, V. Skirbekk, A. Sligar, B.H. Sobaih, M. Soofi, J.B. Soriano, I.N. Soyiri, C.T. Sreeramareddy, A. Sudaryanto, M. Babale Sufiyan, I. Sutradhar, P. Sylaja, R. Tabarés-Seisdedos, B.T. Tadesse, M.-H. Temsah, A.S. Terkawi, B. Tessema, Z.T. Tessema, K.R. Thankappan, R. Topor-Madry, M.R. Tovani-Palone, B.X. Tran, L.T. Car, I. Ullah, O.A. Uthman, P.R. Valdez, Y. Veisani, F.S. Violante, V. Vlassov, S. Vollmer, G. Thu Vu, Y. Waheed, Y.-P. Wang, J.C. Wilkinson, A.S. Winkler, and Local Burden of Disease Educational Attainment Collaborators (2020), <span>“<a href="https://doi.org/10.1038/s41586-019-1872-1">Mapping disparities in education across low- and middle-income countries</a>,”</span> <em>Nature</em>, 577(7789), 235–238.
+</div>
+<div id="ref-hall1978StochasticImplications" class="csl-entry" role="listitem">
+Hall, R.E. (1978), <span>“<a href="https://doi.org/10.1086/260724">Stochastic <span>Implications</span> of the <span>Life Cycle-Permanent Income Hypothesis</span>: <span>Theory</span> and <span>Evidence</span></a>,”</span> <em>Journal of Political Economy</em>, 86(6), 971–987.
+</div>
+<div id="ref-hanson1996MexicoIntegration" class="csl-entry" role="listitem">
+Hanson, G.H. (1996), <em>U.<span>S</span>.-<span>Mexico</span> integration and regional economies</em>, National Bureau of Economic Research, Cambridge.
+</div>
+<div id="ref-jordahl2019GeopandasGeopandas" class="csl-entry" role="listitem">
+Jordahl, K., J. Van Den Bossche, J. Wasserman, J. McBride, J. Gerard, J. Tratner, M. Perry, C. Farmer, M. Cochran, S. Gillies, M. Bartos, L. Culbertson, N. Eubank, Maxalbert, M. Fleischmann, G.A. Hjelle, D. Arribas-Bel, C. Ren, S. Rey, M. Journois, L.J. Wolf, A. Bilogur, N. Grue, J. Wilson, YuichiNotoya, L. Wasser, Filipe, C. Holdgraf, A. Greenhall, and J. Trengrove (2019), <em><a href="https://doi.org/10.5281/ZENODO.2585849">Geopandas/geopandas: V0.4.1</a></em>, Zenodo.
+</div>
+<div id="ref-kanbur2005SpatialInequality" class="csl-entry" role="listitem">
+Kanbur, S.M.R., and A. Venables (2005), <em>Spatial <span>Inequality</span> and <span>Development</span></em>, Oxford University Press.
+</div>
+<div id="ref-khedmatimorasae2024SocialDeterminants" class="csl-entry" role="listitem">
+Khedmati Morasae, E., D.W. Derbyshire, P. Amini, and T. Ebrahimi (2024), <span>“<a href="https://doi.org/10.1016/j.ssmph.2024.101621">Social determinants of spatial inequalities in <span>COVID-19</span> outcomes across <span>England</span>: <span>A</span> multiscale geographically weighted regression analysis</a>,”</span> <em>SSM - Population Health</em>, 25, 101621.
+</div>
+<div id="ref-knaap2017CartographyOpportunity" class="csl-entry" role="listitem">
+Knaap, E. (2017), <span>“<a href="https://doi.org/10.1080/10511482.2017.1331930">The <span>Cartography</span> of <span>Opportunity</span>: <span>Spatial Data Science</span> for <span>Equitable Urban Policy</span></a>,”</span> <em>Housing Policy Debate</em>, 27(6), 913–940.
+</div>
+<div id="ref-ledic2023TaxProgressivity" class="csl-entry" role="listitem">
+Ledić, M., I. Rubil, and I. Urban (2023), <span>“<a href="https://doi.org/10.1007/s10797-022-09752-y">Tax progressivity and social welfare with a continuum of inequality views</a>,”</span> <em>International Tax and Public Finance</em>, 30(5), 1266–1296.
+</div>
+<div id="ref-milanovic2007WorldsApart" class="csl-entry" role="listitem">
+Milanović, B. (2007), <em>Worlds apart: Measuring international and global inequality</em>, Princeton university press, Princeton (N.J.).
+</div>
+<div id="ref-milanovic2018GlobalInequality" class="csl-entry" role="listitem">
+—— (2018), <em>Global inequality: A new approach for the age of globalization</em>, First Harvard University Press paperback edition, The Belknap Press of Harvard University Press, Cambridge, Massachusetts London, England.
+</div>
+<div id="ref-nijman2020UrbanInequalities" class="csl-entry" role="listitem">
+Nijman, J., and Y.D. Wei (2020), <span>“<a href="https://doi.org/10.1016/j.apgeog.2020.102188">Urban inequalities in the 21st century economy</a>,”</span> <em>Applied Geography</em>, 117, 102188.
+</div>
+<div id="ref-oecd2018DividedCities" class="csl-entry" role="listitem">
+OECD (2018), <em><a href="https://doi.org/10.1787/9789264300385-en">Divided <span>Cities</span>: <span class="nocase">Understanding Intra-urban Inequalities</span></a></em>, OECD.
+</div>
+<div id="ref-overman2022SpatialDisparities" class="csl-entry" role="listitem">
+Overman, H.G., and X. Xu (2022), <span>“Spatial disparities across labour markets,”</span> Institute for Fiscal Studies.
+</div>
+<div id="ref-panzera2020MeasuringSpatial" class="csl-entry" role="listitem">
+Panzera, D., and P. Postiglione (2020), <span>“<a href="https://doi.org/10.1007/s11205-019-02208-7">Measuring the <span>Spatial Dimension</span> of <span>Regional Inequality</span>: <span>An Approach Based</span> on the <span>Gini Correlation Measure</span></a>,”</span> <em>Social Indicators Research</em>, 148(2), 379–394.
+</div>
+<div id="ref-partridge1998StatePatterns" class="csl-entry" role="listitem">
+Partridge, J.S., M.D. Partridge, and D.S. Rickman (1998), <span>“State patterns in family income inequality,”</span> <em>Contemporary Economic Policy</em>, 16(3), 277–294.
+</div>
+<div id="ref-pen1971IncomeDistribution" class="csl-entry" role="listitem">
+Pen, J. (1971), <em><span>Income distribution</span></em>, Allen Lane, London.
+</div>
+<div id="ref-piketty2003IncomeInequality" class="csl-entry" role="listitem">
+Piketty, T., and E. Saez (2003), <span>“Income <span>Inequality</span> in the <span>United States</span>, 1913-1998,”</span> <em>The Quarterly Journal of Economics</em>, 118(1), 1–39.
+</div>
+<div id="ref-redding2004EconomicGeography" class="csl-entry" role="listitem">
+Redding, S., and A.J. Venables (2004), <span>“<a href="https://doi.org/10.1016/j.jinteco.2003.07.001">Economic geography and international inequality</a>,”</span> <em>Journal of International Economics</em>, 62(1), 53–82.
+</div>
+<div id="ref-rey2022PySALEcosystem" class="csl-entry" role="listitem">
+Rey, S.J., L. Anselin, P. Amaral, D. Arribas-Bel, R.X. Cortes, J.D. Gaboardi, W. Kang, E. Knaap, Z. Li, S. Lumnitz, T.M. Oshan, H. Shao, and L.J. Wolf (2022), <span>“<a href="https://doi.org/10.1111/gean.12276">The <span>PySAL Ecosystem</span>: <span>Philosophy</span> and <span>Implementation</span></a>,”</span> <em>Geographical Analysis</em>, 54(3), 467–487.
+</div>
+<div id="ref-rey2023GeographicData" class="csl-entry" role="listitem">
+Rey, S.J., D. Arribas-Bel, and L.J. Wolf (2023), <em>Geographic data science with <span>Python</span></em>, CRC Press, Boca Raton.
+</div>
+<div id="ref-rey2023SpatialInequality" class="csl-entry" role="listitem">
+Rey, S.J., and E. Casimiro Vieyra (2023), <span>“<a href="https://doi.org/10.1016/j.apgeog.2023.102871">Spatial inequality and place mobility in <span>Mexico</span>: 2000–2015</a>,”</span> <em>Applied Geography</em>, 152, 102871.
+</div>
+<div id="ref-rey1999us" class="csl-entry" role="listitem">
+Rey, S.J., and B.D. Montouri (1999), <span>“<span>US</span> regional income convergence: A spatial econometric perspective,”</span> <em>Regional Studies</em>, 33(2), 143–156.
+</div>
+<div id="ref-rey2010InterregionalInequality" class="csl-entry" role="listitem">
+Rey, S.J., and M.L. Sastré-Gutiérrez (2010), <span>“Interregional inequality dynamics in <span>Mexico</span>,”</span> <em>Spatial Economic Analysis</em>, 5(3), 277–298.
+</div>
+<div id="ref-rey2013SpatialDecomposition" class="csl-entry" role="listitem">
+Rey, S.J., and R.J. Smith (2013), <span>“A spatial decomposition of the <span>Gini</span> coefficient,”</span> <em>Letters in Spatial and Resource Sciences</em>, 6, 55–70.
+</div>
+<div id="ref-roemer1998EqualityOpportunity" class="csl-entry" role="listitem">
+Roemer, J.E. (1998), <em>Equality of opportunity</em>, Harvard Univ. Press, Cambridge, Mass.
+</div>
+<div id="ref-sala-i-martin2006WorldDistribution" class="csl-entry" role="listitem">
+Sala-i-Martin, X. (2006), <span>“<a href="https://www.jstor.org/stable/25098796">The <span>World Distribution</span> of <span>Income</span>: <span>Falling Poverty</span> and... <span>Convergence</span>, <span>Period</span></a>,”</span> <em>The Quarterly Journal of Economics</em>, 121(2), 351–397.
+</div>
+<div id="ref-sen2004InequalityReexamined" class="csl-entry" role="listitem">
+Sen, A. (2004), <em>Inequality reexamined</em>, Reprint, Oxford Univ. Press, New York.
+</div>
+<div id="ref-suss2024GEOWEALTHUSSpatial" class="csl-entry" role="listitem">
+Suss, J., T. Kemeny, and D.S. Connor (2024), <span>“<a href="https://doi.org/10.1038/s41597-024-03059-9"><span>GEOWEALTH-US</span>: <span>Spatial</span> wealth inequality data for the <span>United States</span>, 1960–2020</a>,”</span> <em>Scientific Data</em>, 11(1), 253.
+</div>
+<div id="ref-theil1967EconomicsInformation" class="csl-entry" role="listitem">
+Theil, H. (1967), <em>Economics and <span>Information Theory</span></em>, North Holland, Amsterdam.
+</div>
+<div id="ref-tine2017GrowingRural" class="csl-entry" role="listitem">
+Tine, M. (2017), <span>“<a href="https://doi.org/10.5772/intechopen.68581">Growing up in <span>Rural</span> vs. <span>Urban Poverty</span>: <span>Contextual</span>, <span>Academic</span>, and <span>Cognitive Differences</span></a>,”</span> in: <em>Poverty, <span>Inequality</span> and <span>Policy</span></em>, IntechOpen.
+</div>
+<div id="ref-u.s.departmentofcommerce2023GeographicInequality" class="csl-entry" role="listitem">
+U.S. Department of Commerce (2023), <em>Geographic <span>Inequality</span> on the <span>Rise</span> in the <span>U</span>.<span>S</span>.</em>
+</div>
+<div id="ref-venter2023EnvironmentalJustice" class="csl-entry" role="listitem">
+Venter, Z.S., H. Figari, O. Krange, and V. Gundersen (2023), <span>“<a href="https://doi.org/10.1016/j.scitotenv.2022.160193">Environmental justice in a very green city: <span>Spatial</span> inequality in exposure to urban nature, air pollution and heat in <span>Oslo</span>, <span>Norway</span></a>,”</span> <em>Science of The Total Environment</em>, 858, 160193.
+</div>
+<div id="ref-wang2024RobustMethod" class="csl-entry" role="listitem">
+Wang, J., M.-P. Kwan, G. Xiu, and F. Deng (2024), <span>“<a href="https://doi.org/10.1016/j.geosus.2024.07.004">A robust method for evaluating the potentials of 15-minute cities: <span>Implications</span> for sustainable urban futures</a>,”</span> <em>Geography and Sustainability</em>, S2666683924000646.
+</div>
+<div id="ref-waskom2021SeabornStatistical" class="csl-entry" role="listitem">
+Waskom, M. (2021), <span>“<a href="https://doi.org/10.21105/joss.03021">Seaborn: Statistical data visualization</a>,”</span> <em>Journal of Open Source Software</em>, 6(60), 3021.
+</div>
+<div id="ref-zhang2001WhatDifference" class="csl-entry" role="listitem">
+Zhang, X., and R. Kanbur (2001), <span>“What difference do polarisation measures make?: <span>An</span> application to <span>China</span>,”</span> <em>Journal of Development Studies</em>, 37, 85–98.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>It is important to keep in mind that income is measured as a flow whereas wealth is a stock. This distinction matters in terms of the way disparities in the two variables are examined.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The python code used to construct this map is hidden.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>States with shares below <span class="math inline">\(1/n\)</span> would also have location quotients of less than one for their relative per capita incomes, where their per capita income was expressed relative to national per capita income.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>See <span class="citation" data-cites="cowell2011MeasuringInequality">Cowell (<a href="#ref-cowell2011MeasuringInequality" role="doc-biblioref">2011</a>)</span> for an overview of inequality measures.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>One of the earliest applications of decomposition for regional inequality analysis is <span class="citation" data-cites="theil1967EconomicsInformation">Theil (<a href="#ref-theil1967EconomicsInformation" role="doc-biblioref">1967</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><span class="math inline">\(32! = 2.6313084e+35\)</span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>It is sometimes stated that the maximum value of the Gini in this form is 1 <span class="citation" data-cites="wang2024RobustMethod">(e.g., <a href="#ref-wang2024RobustMethod" role="doc-biblioref">Wang et al., 2024</a>)</span>. This is technically incorrect, as in in this form, the Gini has a range of <span class="math inline">\([0, (n-1)/n]\)</span>. As <span class="math inline">\(n\)</span> grows larger, the upper bound approaches 1. Moreover, because the upper bound is a function of <span class="math inline">\(n\)</span>, care should be taken when using the Gini in this form when comparing distributions of different sizes.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>For a recent extension of the spatial Gini decomposition see <span class="citation" data-cites="panzera2020MeasuringSpatial">Panzera and Postiglione (<a href="#ref-panzera2020MeasuringSpatial" role="doc-biblioref">2020</a>)</span>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
