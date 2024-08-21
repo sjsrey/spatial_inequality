@@ -4,7 +4,7 @@
 August 21, 2024
 
 
-<img src="spatial_inequality_files/figure-html/fig-invariance-output-1.png" alt="Spatial Inequality Map" width="800"/>
+<img src="images/spatial_invariance.png" alt="Spatial Inequality Map" width="800"/>
 
 This Quarto project contains the source files and resources for the analysis of spatial inequality. The main document is `spatial_inequality.qmd`, which, when rendered, produces a PDF paper summarizing the findings.
 
@@ -32,6 +32,6 @@ quarto render spatial_inequality.qmd
 
 ## Reading the document
 
-- [pdf](spatial_inequality.pdf)
+- [pdf](http://sergerey.org/spatial_inequality/spatial_inequality.pdf)
 
 
