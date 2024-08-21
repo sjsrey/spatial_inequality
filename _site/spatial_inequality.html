@@ -79,16 +79,48 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="spatial_inequality_files/libs/clipboard/clipboard.min.js"></script>
-<script src="spatial_inequality_files/libs/quarto-html/quarto.js"></script>
-<script src="spatial_inequality_files/libs/quarto-html/popper.min.js"></script>
-<script src="spatial_inequality_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="spatial_inequality_files/libs/quarto-html/anchor.min.js"></script>
-<link href="spatial_inequality_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="spatial_inequality_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="spatial_inequality_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="spatial_inequality_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="spatial_inequality_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -127,8 +159,13 @@ window.Quarto = {
 
 <body class="fullcontent">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -205,9 +242,9 @@ window.Quarto = {
 <p>In the following section, we present the packages and computational environment used. The narrative following code cells explains the computational concepts.</p>
 <section id="packages" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">3.1</span> Packages</h2>
-<div id="147e5759" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inequality <span class="im">as</span> ineq</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="1ed913b9" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inequality <span class="im">as</span> ineq</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> libpysal <span class="im">as</span> lps</span>
@@ -234,7 +271,7 @@ window.Quarto = {
   %reload_ext watermark
 Author: Sergio Rey
 
-Last updated: Wed Aug 21 2024 10:17:52
+Last updated: Wed Aug 21 2024 10:55:35
 
 Python implementation: CPython
 Python version       : 3.12.4
@@ -257,7 +294,7 @@ libpysal  : 4.12.0
 <section id="data" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Data</h1>
 <p>To illustrate the core concepts in spatial inequality measurement, we will rely on a data set for the states in Mexico <span class="citation" data-cites="rey2010InterregionalInequality">(<a href="#ref-rey2010InterregionalInequality" role="doc-biblioref">Rey and Sastré-Gutiérrez, 2010</a>)</span>. The variable of interest is state per capita gross domestic product measured in 2000 USD measured for each decade from 1940-2000 for each of 32 areas consisting of the 31 federal states of Mexico plus Mexico City. This data-set is included as an example data-set in <code>libpysal</code>.</p>
-<div id="cbeeddb0" class="cell" data-execution_count="2">
+<div id="d761af6a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lps.examples.explain(<span class="st">"mexico"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mexico
@@ -290,7 +327,7 @@ Figure&nbsp;1: States of Mexico
 </div>
 </div>
 </div>
-<div id="270a379a" class="cell" data-execution_count="4">
+<div id="3991487a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pth <span class="op">=</span> lps.examples.get_path(<span class="st">"mexico.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(pth)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of dataframe: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -410,7 +447,7 @@ Figure&nbsp;5: Querying the Pengram of Per Capita Gross Domestic Product by Stat
 </div>
 <!--
 
-::: {#76164c05 .cell execution_count=9}
+::: {#66951653 .cell execution_count=9}
 ``` {.python .cell-code}
 figsize = (8, 6)
 years = range(1940, 2010, 10)
@@ -496,7 +533,7 @@ Figure&nbsp;7: Lorenz Curve and Schutz Line Per Capita Gross Domestic Product by
 Table&nbsp;1: Inequality Index Rankings
 </figcaption>
 <div aria-describedby="tbl-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="102">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -933,6 +970,8 @@ Figure&nbsp;13: Populated Weighted Pengram
 <p>In future research, it would be beneficial to investigate the relationship between spatial inequality and place mobility. Place mobility refers to the economic trajectory of a location within the national context, similar to the concept of inter-generational income mobility <span class="citation" data-cites="rey2023SpatialInequality">(<a href="#ref-rey2023SpatialInequality" role="doc-biblioref">Rey and Casimiro Vieyra, 2023</a>)</span>. Exploring the link between place mobility and spatial polarization is crucial, especially how the movement of states within the income distribution impacts broader regional inequalities. Moreover, gaining insight into the interaction between place mobility and “place-based policies” could help in designing more effective regional development strategies that reduce inequality while fostering economic mobility.</p>
 <!-- ## References -->
 
+
+
 </section>
 
 
@@ -1087,8 +1126,7 @@ Zhang, X., and R. Kanbur (2001), <span>“What difference do polarisation measur
 <li id="fn7"><p>It is sometimes stated that the maximum value of the Gini in this form is 1 <span class="citation" data-cites="wang2024RobustMethod">(e.g., <a href="#ref-wang2024RobustMethod" role="doc-biblioref">Wang et al., 2024</a>)</span>. This is technically incorrect, as in in this form, the Gini has a range of <span class="math inline">\([0, (n-1)/n]\)</span>. As <span class="math inline">\(n\)</span> grows larger, the upper bound approaches 1. Moreover, because the upper bound is a function of <span class="math inline">\(n\)</span>, care should be taken when using the Gini in this form when comparing distributions of different sizes.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>For a recent extension of the spatial Gini decomposition see <span class="citation" data-cites="panzera2020MeasuringSpatial">Panzera and Postiglione (<a href="#ref-panzera2020MeasuringSpatial" role="doc-biblioref">2020</a>)</span>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section></div></main>
-<!-- /main column -->
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
