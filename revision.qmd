@@ -159,7 +159,7 @@ personal income inequality [@partridge1998StatePatterns;
 state varies across states. In the spatially oriented inequality studies, the
 geographical unit of analysis can range from countries
 [@milanovic2018GlobalInequality], to intra-national regions [@ganong2017WhyHas],
-to cities [@u.s.departmentofcommerce2023GeographicInequality], and down to
+to cities [@u.s.departmentofcommerce2023GeographicInequality, @sarkar2024SpatialInequalities], and down to
 neighborhoods [@nijman2020UrbanInequalities].
 
 A final inequality concept we need to consider is the role of time.  One
