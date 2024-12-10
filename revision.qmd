@@ -62,13 +62,17 @@ overall quality of life. Ultimately, this interdisciplinary approach fosters a
 deeper understanding of the complex dynamics at play and supports the creation
 of more inclusive and effective policies.
 
-The field of spatial data science [@rey2023GeographicData] provides tools to
-visualize and analyze spatial inequality. Thus, it is well-positioned to support
-such interdisciplinary research. The goal of this chapter is to introduce social
-scientists to the concepts and measurement of spatial inequality. The emphasis
-is on adopting a computationally focused and reproducible treatment that would
-allow researchers to apply the methods introduced here to their own
-investigations.
+The field of spatial data science [@rey2023GeographicData] provides
+tools to visualize and analyze spatial inequality. Methods such as local
+spatial autocorrelation analysis [@anselin1995LocalIndicators], spatial distribution dynamics [@rey2015DiscreteRegionala], and
+regionalization [@wei2020EfficientRegionalization] offer robust frameworks to identify patterns,
+relationships, and variations across geographical contexts. Thus,
+spatial data science is well-positioned to support such
+interdisciplinary research. The goal of this chapter is to introduce
+social scientists to the concepts and measurement of spatial
+inequality. The emphasis is on adopting a computationally focused and
+reproducible treatment that would allow researchers to apply the
+methods introduced here to their own investigations.
 
 The chapter proceeds as follows. We first develop a conceptual understanding
 of the measurement of spatial inequality. Next, we describe the computational
