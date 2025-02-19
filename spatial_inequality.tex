@@ -257,9 +257,7 @@ Sergio J. Rey\parnote{San Diego State University, San Diego, USA}}
 \begin{document}
 \maketitle
 \begin{abstract}
-The study of spatial inequality has gained prominence due to its
-significant implications for both scientific research and policy-making.
-This chapter explores the concepts and computational methods used to
+This paper explores the concepts and computational methods used to
 measure spatial inequality, emphasizing a reproducible approach that
 social scientists can apply to their research. The analysis focuses on
 geographic income disparities at the sub-national level, using Mexico as
@@ -308,13 +306,27 @@ understanding of the complex dynamics at play and supports the creation
 of more inclusive and effective policies.
 
 The field of spatial data science \citep{rey2023GeographicData} provides
-tools to visualize and analyze spatial inequality. Thus, it is
-well-positioned to support such interdisciplinary research. The goal of
-this chapter is to introduce social scientists to the concepts and
-measurement of spatial inequality. The emphasis is on adopting a
-computationally focused and reproducible treatment that would allow
-researchers to apply the methods introduced here to their own
-investigations.
+tools to visualize and analyze spatial inequality. Methods such as local
+spatial autocorrelation analysis \citep{anselin1995LocalIndicators},
+spatial distribution dynamics \citep{rey2015DiscreteRegionala}, and
+regionalization \citep{wei2020EfficientRegionalization} offer robust
+frameworks to identify patterns, relationships, and variations across
+geographical contexts. Thus, spatial data science is well-positioned to
+support such interdisciplinary research. The goal of this chapter is to
+introduce social scientists to the concepts and measurement of spatial
+inequality. The emphasis is on adopting a computationally focused and
+reproducible treatment that would allow researchers to apply the methods
+introduced here to their own investigations.
+
+The focus is on a case study of regional income inequality in Mexico,
+which provides a compelling example of spatial disparities and their
+implications for both scientific inquiry and policy-making. Mexico's
+diverse regional landscape, marked by significant economic, social, and
+cultural differences, offers a rich context for analyzing how inequality
+manifests across geographical spaces. By examining income inequality at
+the regional level, this case study highlights the spatial patterns and
+clusters of economic disparities, providing insight into the underlying
+processes that drive inequality.
 
 The chapter proceeds as follows. We first develop a conceptual
 understanding of the measurement of spatial inequality. Next, we
@@ -374,10 +386,12 @@ with studies of the inequality of wealth
 \citep{suss2024GEOWEALTHUSSpatial}.\footnote{It is important to keep in
   mind that income is measured as a flow whereas wealth is a stock. This
   distinction matters in terms of the way disparities in the two
-  variables are examined.} More granular studies examine disparities in
-the sources of income, such as wages, as well as employment rates
-\citep{overman2022SpatialDisparities}. Outside of economics, topics such
-as disparities in educational outcomes
+  variables are examined. See the discussions in
+  \citep{saez2016WealthInequality} and
+  \citep{piketty2014CapitalTwentyfirst}.} More granular studies examine
+disparities in the sources of income, such as wages, as well as
+employment rates \citep{overman2022SpatialDisparities}. Outside of
+economics, topics such as disparities in educational outcomes
 \citep{graetz2020MappingDisparities}, health outcomes
 \citep{khedmatimorasae2024SocialDeterminants}, voting patterns
 \citep{barber2022400Million}, among many others, are replete across the
@@ -409,8 +423,8 @@ how inequality between individuals within a state varies across states.
 In the spatially oriented inequality studies, the geographical unit of
 analysis can range from countries \citep{milanovic2018GlobalInequality},
 to intra-national regions \citep{ganong2017WhyHas}, to cities
-\citep{u.s.departmentofcommerce2023GeographicInequality}, and down to
-neighborhoods \citep{nijman2020UrbanInequalities}.
+\citep{u.s.departmentofcommerce2023GeographicInequality, sarkar2024SpatialInequalities},
+and down to neighborhoods \citep{nijman2020UrbanInequalities}.
 
 A final inequality concept we need to consider is the role of time. One
 question is the time unit. Is income measured per person, per year, or
@@ -442,8 +456,8 @@ computational concepts.
 \ImportTok{import}\NormalTok{ libpysal }\ImportTok{as}\NormalTok{ lps}
 \ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns}
 \ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
-\ImportTok{import}\NormalTok{ watermark}
-\OperatorTok{\%}\NormalTok{load\_ext watermark}
+\ImportTok{import}\NormalTok{ watermark }\hspace*{\fill}\NormalTok{\circled{3}}
+\OperatorTok{\%}\NormalTok{load\_ext watermark                     }
 \OperatorTok{\%}\NormalTok{watermark }\OperatorTok{{-}}\NormalTok{a }\StringTok{"Sergio Rey"} \OperatorTok{{-}}\NormalTok{u }\OperatorTok{{-}}\NormalTok{n }\OperatorTok{{-}}\NormalTok{t }\OperatorTok{{-}}\NormalTok{v }\OperatorTok{\textbackslash{}}
     \OperatorTok{{-}}\NormalTok{p numpy,pandas,scipy,matplotlib,inequality,seaborn,libpysal}
 \end{Highlighting}
@@ -455,24 +469,27 @@ computational concepts.
 We alias the package \texttt{inequality} as \texttt{ineq}
 \item[\circled{2}]
 We do the same for \texttt{numpy}
+\item[\circled{3}]
+\texttt{watermark} reports the current versions of our packages to
+support reproducibility
 \end{description}
 
 \begin{verbatim}
 Author: Sergio Rey
 
-Last updated: Wed Aug 21 2024 10:55:24
+Last updated: Mon Dec 16 2024 09:17:39
 
 Python implementation: CPython
-Python version       : 3.12.4
-IPython version      : 8.26.0
+Python version       : 3.10.16
+IPython version      : 8.30.0
 
-numpy     : 2.0.1
-pandas    : 2.2.2
-scipy     : 1.14.0
-matplotlib: 3.9.1
-inequality: 0.1.dev170+gd70b5c0.d20240820
+numpy     : 2.2.0
+pandas    : 2.2.3
+scipy     : 1.14.1
+matplotlib: 3.9.4
+inequality: 1.0.2.dev78+gbb07357
 seaborn   : 0.13.2
-libpysal  : 4.12.0
+libpysal  : 4.12.1
 \end{verbatim}
 
 Our analysis of spatial inequality utilizes packages from the Python
@@ -498,10 +515,10 @@ in our analysis.
 To illustrate the core concepts in spatial inequality measurement, we
 will rely on a data set for the states in Mexico
 \citep{rey2010InterregionalInequality}. The variable of interest is
-state per capita gross domestic product measured in 2000 USD measured
-for each decade from 1940-2000 for each of 32 areas consisting of the 31
-federal states of Mexico plus Mexico City. This data-set is included as
-an example data-set in \texttt{libpysal}.
+state per capita gross domestic product (pcgdp) measured in 2000 USD
+measured for each decade from 1940-2000 for each of 32 areas consisting
+of the 31 federal states of Mexico plus Mexico City. This data-set is
+included as an example data-set in \texttt{libpysal}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -529,10 +546,92 @@ file, there are two additional files available in this example:
 relationships between the states, and \texttt{mexicojoin.shp} which is a
 shapefile.
 
-Figure~\ref{fig-states} lists the locations of the 32 Mexican
-states.\footnote{The python code used to construct this map is hidden.}
+The following code block produces Figure~\ref{fig-states} which lists
+the locations of the 32 Mexican states.
 
-\begin{figure}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a map to provide}
+\CommentTok{\# context for the subsequent analysis}
+
+\CommentTok{\# We use the library mapclassify for choropleth classifications}
+\ImportTok{import}\NormalTok{ mapclassify}
+
+\CommentTok{\# set the path to our shapefile and read the file into a geodatafame}
+\NormalTok{pth }\OperatorTok{=}\NormalTok{ lps.examples.get\_path(}\StringTok{"mexicojoin.shp"}\NormalTok{)}
+\NormalTok{gdf }\OperatorTok{=}\NormalTok{ gpd.read\_file(pth)}
+
+\CommentTok{\# we will use greedy from mapclassify}
+\CommentTok{\# states to ensure contiguous states are of a different color}
+\NormalTok{sgdf }\OperatorTok{=}\NormalTok{ gdf.sort\_values(by}\OperatorTok{=}\StringTok{\textquotesingle{}NAME\textquotesingle{}}\NormalTok{)}
+\NormalTok{sgdf.reset\_index(inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{sgdf[}\StringTok{\textquotesingle{}label\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{33}\NormalTok{)}
+\NormalTok{sgdf[}\StringTok{\textquotesingle{}greedy\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ mapclassify.greedy(sgdf)}
+
+\CommentTok{\# set the font size and position}
+\NormalTok{font\_size }\OperatorTok{=} \DecValTok{9}
+\NormalTok{outside }\OperatorTok{=}\NormalTok{ [}\DecValTok{9}\NormalTok{, }\DecValTok{29}\NormalTok{]}
+\NormalTok{oc }\OperatorTok{=}\NormalTok{ [(}\OperatorTok{{-}}\DecValTok{103}\NormalTok{, }\FloatTok{17.5}\NormalTok{), (}\OperatorTok{{-}}\DecValTok{95}\NormalTok{, }\FloatTok{22.5}\NormalTok{)]}
+\NormalTok{oe }\OperatorTok{=}\NormalTok{ [(}\OperatorTok{{-}}\FloatTok{102.55}\NormalTok{, }\FloatTok{17.49}\NormalTok{),(}\OperatorTok{{-}}\FloatTok{95.5}\NormalTok{, }\FloatTok{22.1}\NormalTok{)] }
+\NormalTok{oinfo }\OperatorTok{=} \BuiltInTok{zip}\NormalTok{(outside, oc)}
+
+\CommentTok{\# we will use LineStrings from shapely}
+\CommentTok{\# for call{-}outs to state names}
+\ImportTok{from}\NormalTok{ shapely.geometry }\ImportTok{import}\NormalTok{ LineString}
+
+\CommentTok{\# plot the map }
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\NormalTok{sgdf[}\StringTok{\textquotesingle{}centroid\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ sgdf.centroid}
+\NormalTok{ax }\OperatorTok{=}\NormalTok{ sgdf.plot(}
+\NormalTok{    figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{12}\NormalTok{),}
+\NormalTok{    column}\OperatorTok{=}\StringTok{"greedy"}\NormalTok{,}
+\NormalTok{    categorical}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{    cmap}\OperatorTok{=}\StringTok{"Set3"}\NormalTok{,}
+    \CommentTok{\#legend=True,}
+\NormalTok{    edgecolor}\OperatorTok{=}\StringTok{"w"}\NormalTok{,}
+\NormalTok{)}
+
+\CommentTok{\# build the table of state names}
+\NormalTok{table }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ idx, row }\KeywordTok{in}\NormalTok{ sgdf.iterrows():}
+\NormalTok{    centroid }\OperatorTok{=}\NormalTok{ row[}\StringTok{\textquotesingle{}centroid\textquotesingle{}}\NormalTok{]}
+\NormalTok{    table.append(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{idx}\OperatorTok{+}\DecValTok{1}\SpecialCharTok{:2d\}}\SpecialStringTok{ }\SpecialCharTok{\{}\NormalTok{row[}\StringTok{"NAME"}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ idx}\OperatorTok{+}\DecValTok{1} \KeywordTok{not} \KeywordTok{in}\NormalTok{ outside:}
+\NormalTok{        ax.text(centroid.x, centroid.y, }\BuiltInTok{str}\NormalTok{(idx}\OperatorTok{+}\DecValTok{1}\NormalTok{), ha}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{,}
+\NormalTok{                va}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\NormalTok{font\_size, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# add the call{-}outs and number the polygons}
+\NormalTok{i }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ out }\KeywordTok{in}\NormalTok{ oinfo:}
+\NormalTok{    idx, coords }\OperatorTok{=}\NormalTok{ out}
+\NormalTok{    ax.text(coords[}\DecValTok{0}\NormalTok{], coords[}\DecValTok{1}\NormalTok{], }\BuiltInTok{str}\NormalTok{(idx), ha}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{,}
+\NormalTok{            va}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\NormalTok{font\_size, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{)}
+\NormalTok{    start\_point }\OperatorTok{=}\NormalTok{ coords}
+\NormalTok{    end\_point }\OperatorTok{=}\NormalTok{ sgdf.centroid[idx}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]}
+
+    \CommentTok{\# Create a LineString object}
+\NormalTok{    start\_point }\OperatorTok{=}\NormalTok{ oe[i]}
+\NormalTok{    line }\OperatorTok{=}\NormalTok{ LineString([start\_point, end\_point])}
+    
+    \CommentTok{\# Create a GeoSeries for the line}
+\NormalTok{    line\_gdf }\OperatorTok{=}\NormalTok{ gpd.GeoSeries([line])}
+    
+    \CommentTok{\# Plot the line}
+\NormalTok{    line\_gdf.plot(ax}\OperatorTok{=}\NormalTok{ax, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, linewidth}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
+\NormalTok{    i}\OperatorTok{+=}\DecValTok{1}
+
+\ControlFlowTok{for}\NormalTok{ i, label }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(table):}
+    \ControlFlowTok{if}\NormalTok{ i }\OperatorTok{\textless{}} \DecValTok{16}\NormalTok{:}
+\NormalTok{        ax.text(}\OperatorTok{{-}}\DecValTok{120}\NormalTok{, }\DecValTok{20}\OperatorTok{{-}}\NormalTok{i}\OperatorTok{*}\DecValTok{1}\NormalTok{, label, ha}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{,}
+\NormalTok{                va}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\NormalTok{font\_size, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        ax.text(}\OperatorTok{{-}}\DecValTok{110}\NormalTok{, }\DecValTok{20}\OperatorTok{{-}}\NormalTok{(i}\OperatorTok{{-}}\DecValTok{16}\NormalTok{)}\OperatorTok{*}\DecValTok{1}\NormalTok{, label, ha}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{,}
+\NormalTok{                va}\OperatorTok{=}\StringTok{\textquotesingle{}center\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\NormalTok{font\_size, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+\NormalTok{ax.set\_axis\_off()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
 
 \centering{
 
@@ -544,8 +643,18 @@ states.\footnote{The python code used to construct this map is hidden.}
 
 \end{figure}%
 
+We can read the \texttt{mexico.csv} file using \texttt{pandas} to create
+a \texttt{DataFrame} that will hold the attributes of interest. This
+dataframe has the shape \texttt{(32,13)} indicating there are 32
+observations on 13 variables. The 13 variables include the per capita
+gross domestic product for each decade, for example \texttt{pcgdp1990}
+for 1990, together with the state name, and five variables that define
+different regionalization schemes for the country. We will return to
+these regional variables in a later section.
+
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Create a DataFrame from a csv file}
 \NormalTok{pth }\OperatorTok{=}\NormalTok{ lps.examples.get\_path(}\StringTok{"mexico.csv"}\NormalTok{)}
 \NormalTok{df }\OperatorTok{=}\NormalTok{ pd.read\_csv(pth)}
 \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Shape of dataframe: }\SpecialCharTok{\{}\NormalTok{df}\SpecialCharTok{.}\NormalTok{shape}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
@@ -578,15 +687,6 @@ Variables: Index(['State', 'pcgdp1940', 'pcgdp1950', 'pcgdp1960', 'pcgdp1970',
       dtype='object')
 \end{verbatim}
 
-We can read the \texttt{mexico.csv} file using \texttt{pandas} to create
-a \texttt{DataFrame} that will hold the attributes of interest. This
-dataframe has the shape \texttt{(32,13)} indicating there are 32
-observations on 13 variables. The 13 variables include the per capita
-gross domestic product for each decade, for example \texttt{pcgdp1990}
-for 1990, together with the state name, and six variables that define
-different regionalization schemes for the country. We will return to
-these regional variables in a later section.
-
 \section{Measuring Spatial Inequality in
 Mexico}\label{measuring-spatial-inequality-in-mexico}
 
@@ -594,12 +694,16 @@ Mexico}\label{measuring-spatial-inequality-in-mexico}
 Distributions}\label{visualizing-inequality-in-distributions}
 
 We begin with different perspectives on the distribution of state
-incomes in Mexico. From a geographical perspective,
-Figure~\ref{fig-mappcgdp2000} shows the spatial distribution of incomes
-for the last year of the sample (2000).
+incomes in Mexico. There are two different approaches towards
+visualizing the distribution: one focusing on the geographical
+distribution and the second on the attribute distribution. From a
+geographical perspective, Figure~\ref{fig-mappcgdp2000} shows the
+spatial distribution of incomes for the last year of the sample (2000).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Create a choropleth map of per capita gross}
+\CommentTok{\# domestic product in 2000 using quintiles for the classification}
 \NormalTok{pth }\OperatorTok{=}\NormalTok{ lps.examples.get\_path(}\StringTok{"mexicojoin.shp"}\NormalTok{)}
 \NormalTok{gdf }\OperatorTok{=}\NormalTok{ gpd.read\_file(pth)}
 \NormalTok{ax }\OperatorTok{=}\NormalTok{ gdf.plot(column}\OperatorTok{=}\StringTok{"PCGDP2000"}\NormalTok{, k}\OperatorTok{=}\DecValTok{5}\NormalTok{, scheme}\OperatorTok{=}\StringTok{"Quantiles"}\NormalTok{,}
@@ -649,6 +753,7 @@ representing the interval distances in their per capita incomes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce the Pen\textquotesingle{}s Parade for 2000}
 \ImportTok{from}\NormalTok{ inequality.pen }\ImportTok{import}\NormalTok{ pen}
 \NormalTok{f }\OperatorTok{=}\NormalTok{ pen(gdf, }\StringTok{\textquotesingle{}PCGDP2000\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}NAME\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
@@ -673,6 +778,7 @@ package:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce pengram for 2000}
 \ImportTok{from}\NormalTok{ inequality.pen }\ImportTok{import}\NormalTok{ pengram}
 \NormalTok{f }\OperatorTok{=}\NormalTok{ pengram(gdf, }\StringTok{\textquotesingle{}PCGDP2000\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}NAME\textquotesingle{}}\NormalTok{, xticks}\OperatorTok{=}\VariableTok{False}\NormalTok{, leg\_pos}\OperatorTok{=}\StringTok{\textquotesingle{}lower left\textquotesingle{}}\NormalTok{,}
 \NormalTok{        fmt}\OperatorTok{=}\StringTok{"}\SpecialCharTok{\{:.0f\}}\StringTok{"}\NormalTok{)}
@@ -715,6 +821,8 @@ identify on the map without the query functionality of the pengram.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Code snippet to produce the pengram}
+\CommentTok{\# with query for Chiapas and Distrito Federal}
 \ImportTok{from}\NormalTok{ inequality.pen }\ImportTok{import}\NormalTok{ pengram}
 \NormalTok{f }\OperatorTok{=}\NormalTok{ pengram(gdf, }\StringTok{\textquotesingle{}PCGDP2000\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}NAME\textquotesingle{}}\NormalTok{,  leg\_pos}\OperatorTok{=}\StringTok{\textquotesingle{}lower left\textquotesingle{}}\NormalTok{,}
 \NormalTok{            fmt}\OperatorTok{=}\StringTok{"}\SpecialCharTok{\{:.0f\}}\StringTok{"}\NormalTok{,}
@@ -738,16 +846,21 @@ Gross Domestic Product by State 2000}
 
 Returning to a more granular view of the attribute distribution,
 Figure~\ref{fig-kde2000} combines a histogram of the distribution
-together with a kernel density estimate, and a rug plot. The latter
-signifies the positions of each state as short ticks on the x-axis. The
-outlier nature of the Distrito Federal that we saw in the
-\texttt{pengram} is responsible for the positive (right) skew of the
-density function. There is some evidence of polarization in the
-distribution with the mode being at the poorest group of states and
-other, lower, peaks in the middle of the distribution.
+together with a kernel density estimate, and a rug plot. The kernel
+density estimate is a smooth curve that represents the probability
+density function of the data, providing a continuous approximation of
+the underlying distribution. The rug plot signifies the positions of
+each state as short ticks on the x-axis. The outlier nature of the
+Distrito Federal that we saw in the \texttt{pengram} is responsible for
+the positive (right) skew of the density function. There is some
+evidence of polarization in the distribution with the mode being at the
+poorest group of states and other, lower, peaks in the middle of the
+distribution.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce histogram,}
+\CommentTok{\# kernel density and rug plot}
 \NormalTok{years }\OperatorTok{=} \BuiltInTok{range}\NormalTok{(}\DecValTok{1940}\NormalTok{, }\DecValTok{2010}\NormalTok{, }\DecValTok{10}\NormalTok{)}
 \NormalTok{yvars }\OperatorTok{=}\NormalTok{ [}\SpecialStringTok{f\textquotesingle{}pcgdp}\SpecialCharTok{\{}\NormalTok{year}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}} \ControlFlowTok{for}\NormalTok{ year }\KeywordTok{in}\NormalTok{ years]}
 \NormalTok{sns.histplot(df[yvars[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]], kde}\OperatorTok{=}\VariableTok{True}\NormalTok{, element}\OperatorTok{=}\StringTok{"step"}\NormalTok{,}
@@ -766,7 +879,7 @@ other, lower, peaks in the middle of the distribution.
 }
 
 \caption{\label{fig-kde2000}Distribution Per Capita Gross Domestic
-Product by State 2000, histogram, kernel density, rug plot}
+Product by State 2000 (pcgdp2000), histogram, kernel density, rug plot}
 
 \end{figure}%
 
@@ -797,6 +910,7 @@ states with below average per capita incomes will have shares below
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce Lorenz Curve and Schutz Line}
 \ImportTok{from}\NormalTok{ inequality.schutz }\ImportTok{import}\NormalTok{ Schutz}
 \NormalTok{s }\OperatorTok{=}\NormalTok{ Schutz(gdf, }\StringTok{\textquotesingle{}PCGDP2000\textquotesingle{}}\NormalTok{)}
 \NormalTok{s.plot(xlabel}\OperatorTok{=}\StringTok{\textquotesingle{}Share of States\textquotesingle{}}\NormalTok{, ylabel}\OperatorTok{=}\StringTok{\textquotesingle{}Share of Per Capita Income\textquotesingle{}}\NormalTok{)}
@@ -817,6 +931,51 @@ Gross Domestic Product by State 2000}
 \end{figure}%
 
 \subsection{Measures of Inequality}\label{measures-of-inequality}
+
+A large number of measures of inequality exist, and choosing among the
+rich diversity of inequality measures has been the subject of a vast
+literature.\footnote{See \citet{cowell2011MeasuringInequality} for an
+  overview of inequality measures.} To help guide that selection, there
+are five desirable properties of an inequality measure:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Symmetry or anonymity
+\item
+  Principle of transfers
+\item
+  Scale invariance
+\item
+  Replication invariance
+\item
+  Zero normalization
+\end{enumerate}
+
+Symmetry implies that the names of the income receiving unit should be
+immaterial. That is, if we swap the income of one geographical unit with
+that of another, the overall inequality measure should not change. The
+principle of transfers implies that the measure should reflect a
+reduction in inequality if income is transferred from a richer unit to a
+poorer unit, as long as the transfer does not reverse their income
+ranking. Scale invariance means that if all incomes are multiplied by
+the same constant, inequality remains unchanged. Replication invariance
+implies that an inequality measure should be unaffected if the
+population is replicated, meaning that duplicating the entire income
+distribution does not alter the measure of inequality. Zero
+normalization means that an inequality measure assigns a value of zero
+to a perfectly equal income distribution, serving as a baseline where
+all units have the same income.
+
+Not all of the inequality measures satisfy all of these five properties.
+For example, the variance is not scale invariant, and both the
+logarithmic variance and variance of logarithms fail the principle of
+transfers property. Even for measures that respect these five
+properties, their use in comparing the levels of inequality between
+countries at one point in time, or the same country at different points
+of time, requires the researcher to specify a social welfare function
+\citep{atkinson1970MeasurementInequality}.
 
 We can derive two indices from the Lorenz curve: the Gini coefficient
 and the Schutz coefficient. The Gini coefficient is an area measurement
@@ -842,6 +1001,8 @@ the sample mean.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Code snippet to calculate inequality measures for each decade}
+\CommentTok{\# and display in a table}
 \NormalTok{yvars }\OperatorTok{=}\NormalTok{ [}\SpecialStringTok{f\textquotesingle{}PCGDP}\SpecialCharTok{\{}\NormalTok{year}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}} \ControlFlowTok{for}\NormalTok{ year }\KeywordTok{in}\NormalTok{ years]}
 \NormalTok{ginis }\OperatorTok{=}\NormalTok{ [ineq.gini.Gini(gdf[yvar]).g }\ControlFlowTok{for}\NormalTok{ yvar }\KeywordTok{in}\NormalTok{ yvars]}
 \NormalTok{res\_df }\OperatorTok{=}\NormalTok{ pd.DataFrame(data}\OperatorTok{=}\NormalTok{ginis, columns}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}Gini\textquotesingle{}}\NormalTok{], index}\OperatorTok{=}\NormalTok{years)}
@@ -900,6 +1061,7 @@ between 1990 and 2000 (see Table~\ref{tbl-rankings}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Plot Lorenz Curves for each decade}
 \ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
 \ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
 \ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
@@ -947,67 +1109,18 @@ between 1990 and 2000 (see Table~\ref{tbl-rankings}).
 
 \end{figure}%
 
-The CV and Gini are but two of a collection of scalar measures of
-inequality we could apply. Other commonly employed inequality measures
-include the variance, the relative mean deviation, logarithmic variance,
-variance of the logarithms, Atkinson, and Theil.\footnote{See
-  \citet{cowell2011MeasuringInequality} for an overview of inequality
-  measures.} Choosing among the rich diversity of inequality measures
-has been the subject of a vast literature. To help guide that selection,
-there are five desirable properties of an inequality measure:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Symmetry or anonymity
-\item
-  Principle of transfers
-\item
-  Scale invariance
-\item
-  Replication invariance
-\item
-  Zero normalization
-\end{enumerate}
-
-Symmetry implies that the names of the income receiving unit should be
-immaterial. That is, if we swap the income of one geographical unit with
-that of another, the overall inequality measure should not change. The
-principle of transfers implies that the measure should reflect a
-reduction in inequality if income is transferred from a richer unit to a
-poorer unit, as long as the transfer does not reverse their income
-ranking. Scale invariance means that if all incomes are multiplied by
-the same constant, inequality remains unchanged. Replication invariance
-implies that an inequality measure should be unaffected if the
-population is replicated, meaning that duplicating the entire income
-distribution does not alter the measure of inequality. Zero
-normalization means that an inequality measure assigns a value of zero
-to a perfectly equal income distribution, serving as a baseline where
-all units have the same income.
-
-Not all of the inequality measures satisfy all of these five properties.
-For example, the variance is not scale invariant, and both the
-logarithmic variance and variance of logarithms fail the principle of
-transfers property. Even for measures that respect these five
-properties, their use in comparing the levels of inequality between
-countries at one point in time, or the same country at different points
-of time, requires the researcher to specify a social welfare function
-\citep{atkinson1970MeasurementInequality}.
-
-However, in the study of spatial inequality, it is important to note
-that all the measures mentioned above share a sixth property:
-\emph{spatial invariance}. This means they are insensitive to the
-\emph{geographical} distribution of the income values. The spatial
-invariance is demonstrated in Figure~\ref{fig-invariance}, where we
-compare two spatial distributions, one that is the actual distribution
-for 2000 and one where we artificially permute the incomes randomly.
-Despite markedly different spatial patterns, the income distributions
-summarized in the histograms in the bottom row are identical. Since all
-of the inequality measures mentioned only consider information about the
-statistical distribution, each measure will take on the same value
-whether applied to the spatial distribution on the left or right of the
-figure.
+In the study of spatial inequality, it is important to note that all the
+measures mentioned above share a sixth property: \emph{spatial
+invariance}. This means they are insensitive to the \emph{geographical}
+distribution of the income values. The spatial invariance is
+demonstrated in Figure~\ref{fig-invariance}, where we compare two
+spatial distributions, one that is the actual distribution for 2000 and
+one where we artificially permute the incomes randomly. Despite markedly
+different spatial patterns, the income distributions summarized in the
+histograms in the bottom row are identical. Since all of the inequality
+measures mentioned only consider information about the statistical
+distribution, each measure will take on the same value whether applied
+to the spatial distribution on the left or right of the figure.
 
 From a geographical perspective, spatial invariance is not a desirable
 property in an inequality measure. Let's now turn our attention to
@@ -1015,6 +1128,9 @@ spatially explicit measures of inequality.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Generate a 2x2 grid}
+\CommentTok{\# Choropleths in first row}
+\CommentTok{\# Income histograms in second row}
 \NormalTok{fig, axs }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 
 \NormalTok{gdf.plot(column}\OperatorTok{=}\StringTok{\textquotesingle{}PCGDP2000\textquotesingle{}}\NormalTok{, ax}\OperatorTok{=}\NormalTok{axs[}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{], scheme}\OperatorTok{=}\StringTok{\textquotesingle{}quantiles\textquotesingle{}}\NormalTok{,}
@@ -1066,20 +1182,26 @@ Inequality}\label{putting-space-into-the-measurement-of-inequality}
 The inability of the inequality measures to capture any of the
 geographical dimensions of inequality stems from the treatment of the
 geographical units of measurement as individuals, and the desire to
-respect the principle of symmetry or anonymity that is desired in a
-classic inequality measure. This enables researchers to draw upon the
-wealth of knowledge about the properties of classic inequality measures,
-but at the cost of ignoring geography. In other words, these measures
-say a lot about inequality in the statistical distribution of incomes
-but they are silent on the spatial distribution of incomes.
+respect the principle of symmetry or anonymity in a classic inequality
+measure. This enables researchers to draw upon the wealth of knowledge
+about the properties of classic inequality measures, but at the cost of
+ignoring geography. In other words, these measures say a lot about
+inequality in the statistical distribution of incomes but they are
+silent on the spatial distribution of incomes.
 
 In this section, we discuss the approaches used to integrate the spatial
 and statistical distributions in the study of spatial inequality. Given
 that these methods take the geographical distribution into account, they
 can be said to be \emph{spatially explicit measures of inequality}.
 
-These approaches all can be seen as special cases of inequality
-decomposition.
+These approaches are special cases of inequality decomposition. However,
+we highlight a key distinction between those approaches that use the
+concept of regional groupings to represent the geographical dimensions
+of inequality, and those that take a more comprehensive approach to
+introducing geography by considering the pair-wise spatial relationships
+between observations. We label the former category as regional
+inequality decomposition approaches, and the latter as spatial
+inequality decomposition methods.
 
 \subsubsection{Regional Inequality
 Decomposition}\label{regional-inequality-decomposition}
@@ -1091,9 +1213,16 @@ into a set of mutually exclusive and exhaustive groups. The
 decomposition then identifies the overall inequality that is due to
 inequality within groups and between the groups.
 
-To see how this works, we return to the Theil inequality measure that we
-mentioned briefly above. Let \(y_i\) be the income of unit \(i\), and
-\(s_i\) represent the income share of unit \(i\) such that
+To see how this works, we focus on the Theil inequality index
+\citep{theil1967EconomicsInformation}. The Theil inequality index is a
+measure of economic inequality derived from information theory,
+capturing the extent to which a distribution deviates from perfect
+equality. It is sensitive to differences across the distribution and can
+be decomposed into ``within-group'' and ``between-group'' components to
+analyze inequality at different levels.
+
+More formally, let \(y_i\) be the income of unit \(i\), and \(s_i\)
+represent the income share of unit \(i\) such that
 \(s_i = \frac{y_i}{\sum_i y_i}\) and \(\sum_i s_i=1\). Then, consider
 the distribution of the shares. When all units have the same income
 \(s_i = s_j =
@@ -1186,6 +1315,10 @@ inequality and within region inequality components:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce 2x2 Grid}
+\CommentTok{\# First row: spatial distribution and random distribution}
+\CommentTok{\# Second row: another random distribution and density of}
+\CommentTok{\# polarization values}
 \NormalTok{fig, axs }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \ImportTok{from}\NormalTok{ inequality.theil }\ImportTok{import}\NormalTok{ TheilDSim}
 \NormalTok{np.random.seed(}\DecValTok{12345}\NormalTok{)}
@@ -1374,10 +1507,16 @@ space.
 We apply the Spatial Gini Decomposition to Mexican State incomes in 2000
 using \texttt{pysal-inequality} in Figure~\ref{fig-gini-spatial}. The
 adjacency graph based on the criterion of Queen neighbors is shown in
-the top-right figure. An edge defines a pair of neighboring states.
+the top-right figure. An edge defines a pair of neighboring
+states.\footnote{Two units are Queen neighbors if their borders share at
+  least one vertex.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Produce 2x2 Grid}
+\CommentTok{\# First row: spatial distribution and neighbor graph}
+\CommentTok{\# Second row: random distribution and density of}
+\CommentTok{\# Spatial Gini values}
 \NormalTok{fig, axs }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \ImportTok{from}\NormalTok{ inequality.gini }\ImportTok{import}\NormalTok{ Gini\_Spatial}
 \ImportTok{import}\NormalTok{ libpysal}
@@ -1471,18 +1610,45 @@ that demonstrates how spatial autocorrelation affects overall inequality
 across the states.\footnote{For a recent extension of the spatial Gini
   decomposition see \citet{panzera2020MeasuringSpatial}.}
 
-It should be noted that the spatial Gini decomposition does not allow
-for the exact additivity of within-group and between-group inequality
-components. This is because the Gini index is affected by the degree of
-overlap in incomes of states belonging to different regions. Any overlap
-complicates the decomposition because part of the total inequality
-arises from the overlap itself, which cannot be easily attributed to
-either within-group or between-group inequality. So instead of a two-way
-additive decomposition, a residual term is required due to the overlap.
-Because this residual term is difficult to interpret, the Gini is seldom
-used for regional inequality decomposition.
+Spatial autocorrelation refers to the degree to which a spatial variable
+is correlated with itself across geographical space. It measures whether
+similar or dissimilar values of a variable tend to cluster together
+spatially. Positive spatial autocorrelation indicates that similar
+values (e.g., areas with high incomes) are located near each other,
+while negative spatial autocorrelation suggests that dissimilar values
+(e.g., areas with high and low incomes) are spatially proximate. Spatial
+autocorrelation is crucial in studying spatial inequality because it
+reveals the extent to which inequality is spatially patterned,
+reflecting processes like segregation, clustering of poverty or wealth,
+and the spatial diffusion of economic opportunities or disadvantages.
 
-\subsubsection{Weighted or Unweighted Inequality: Places versus
+Identifying and quantifying spatial autocorrelation allows researchers
+to understand the spatial dimensions of inequality, assess the
+effectiveness of place-based policies, and model spatial processes more
+accurately \citep{anselin1995LocalIndicators}. For example, regions with
+high positive spatial autocorrelation of income inequality may require
+targeted regional policies to address concentrated disadvantage. Without
+considering spatial autocorrelation, analyses of inequality risk
+overlooking critical spatial dependencies that shape social and economic
+outcomes. Moreover, the presence of spatial autocorrelation implies that
+inference on inequality measures that rely on the assumption of random
+sampling may be misleading. This is because the autocorrelation violates
+the assumption of independence underlying the random sampling
+assumption.
+
+While the spatial Gini decomposition does take spatial autocorrelation
+into account, it does not allow for the exact additivity of within-group
+and between-group inequality components. This occurs because the Gini
+index depends on the degree of overlap in incomes among states from
+different regions. Any overlap complicates the decomposition, as part of
+the total inequality arises from the overlap itself, which cannot be
+clearly attributed to either within-group or between-group inequality.
+As a result, the decomposition requires a residual term to account for
+the overlap. Since this residual term is difficult to interpret,
+researchers rarely use the Gini index for regional inequality
+decomposition.
+
+\subsection{Weighted or Unweighted Inequality: Places versus
 People}\label{weighted-or-unweighted-inequality-places-versus-people}
 
 A final issue we explore is the question of whether the measure of
@@ -1526,15 +1692,21 @@ of Concept 1 and Concept 2.
 Thus far in this paper, we have adopted the Concept 1 definition of
 spatial inequality, that is, unweighted spatial inequality. We can
 contrast this with the perspective offered by Concept 2, by developing
-the Weighted Pengram under concept 2 shown in
+the Weighted Pen Parade under concept 2 shown in
 Figure~\ref{fig-weighted-pengram} and comparing it with the Unweighted
-Pengram from Figure~\ref{fig-pen2000}. The number of bars for each state
-in the Weighted Pengram is proportional to the population of that state.
-The logic behind the weighted spatial inequality is that rather than
-having one representative observation (individual) from the state with
-their level of income equal to the state per capita income, now there
-are a proportional number of individuals from each state having their
-level of income equal to the state's per capita income.
+Pen Parade from Figure~\ref{fig-pen2000}. The number of bars for each
+state in the Weighted Pen Parade is proportional to the population of
+that state. The logic behind the weighted spatial inequality is that
+rather than having one representative observation (individual) from the
+state with their level of income equal to the state per capita income,
+now there are a proportional number of individuals from each state
+having their level of income equal to the state's per capita
+income.\footnote{A referee suggested that if data on individual incomes
+  were available one could use a pentagram for representing within
+  region/state/city inequality to complement
+  Figure~\ref{fig-weighted-pengram}. In some cases, such as the
+  Netherlands, access to micro level data may be possible under strict
+  conditions.}
 
 \begin{figure}
 
@@ -1544,7 +1716,7 @@ level of income equal to the state's per capita income.
 
 }
 
-\caption{\label{fig-weighted-pengram}Populated Weighted Pengram}
+\caption{\label{fig-weighted-pengram}Populated Weighted Pen Parade}
 
 \end{figure}%
 
@@ -1557,16 +1729,15 @@ state. This is at odds with empirical reality.
 
 \section{Conclusion}\label{conclusion}
 
-Regional inequality continues to attract the attention of researchers
-and policy makers alike. This chapter has presented the key
-methodological approaches available to researchers interested in
-analyzing spatial disparities. By highlighting the challenges posed in
-adapting classical inequality measures to the question of spatial
-inequality, the chapter draws important distinctions between different
-types of inequality decomposition approaches based on their treatment of
-space. These methods reveal the spatial dimensions of inequality,
-particularly the extent to which income disparities are geographically
-clustered.
+Spatial inequality continues to attract the attention of researchers and
+policy makers alike. This chapter has presented the key methodological
+approaches available to researchers interested in analyzing spatial
+disparities. By highlighting the challenges posed in adapting classical
+inequality measures to the question of spatial inequality, the chapter
+draws important distinctions between different types of inequality
+decomposition approaches based on their treatment of space. These
+methods reveal the spatial dimensions of inequality, particularly the
+extent to which income disparities are geographically clustered.
 
 While the focus has been on regional inequality at the sub-national
 scale, these methods have a broad scope that researchers can apply at
@@ -1583,15 +1754,15 @@ across these scales. The work by \citet{ganong2017WhyHas} shows a
 substantial divergence of incomes across states but reports a more mixed
 pattern when measuring convergence using labor market areas.
 
-Linking the spatial inequality measures to possible policy interventions
-offers some possibilities. For example, the distinction between
-inter-regional (between-region) and intra-regional (within-region)
-inequality in the decomposition may help researchers and policymakers
-design such interventions in a tailored fashion. If between-region
-inequality dominates, there may be a strong case for place-based
-policies. Conversely, if the within-region inequality component accounts
-for the majority share, more nationally oriented policies, such as
-federal tax laws, may be more appropriate.
+Linking the spatial inequality measures to potential policy
+interventions offers some interesting possibilities. For example, the
+distinction between inter-regional (between-region) and intra-regional
+(within-region) inequality in the decomposition may help researchers and
+policymakers design such interventions in a tailored fashion. If
+between-region inequality dominates, there may be a strong case for
+place-based policies. Conversely, if the within-region inequality
+component accounts for the majority share, more nationally oriented
+policies, such as federal tax laws, may be more appropriate.
 
 In future research, it would be beneficial to investigate the
 relationship between spatial inequality and place mobility. Place
