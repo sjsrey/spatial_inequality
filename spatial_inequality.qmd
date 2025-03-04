@@ -1380,7 +1380,7 @@ def pen_weighted(df, column, weight, name,
     
     plt.show()
 
-gdf = gpd.read_file('/home/serge/para/1_projects/code-pysal-inequality/inequality/notebooks/weighted.shp')
+gdf = gpd.read_file('data/weighted.shp')
 pen_weighted(gdf[['PCGDP2000', 'populati_1', 'State']], 'PCGDP2000', 'populati_1', 'State')
 #gdf.columns.values
 ```
